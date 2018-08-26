@@ -13,11 +13,15 @@
         <tr>
             <td>Id</td>
             <td>Nome</td>
+            <td>Preço</td>
         </tr>
+        <% for(var i=0;i<lista.length;i++){ %>
         <tr>
-            <td>1</td>
-            <td>Livro de node js</td>
+            <td><%=lista[i].id%></td>
+            <td><%=lista[i].nome%></td>
+            <td><%=lista[i].preco%></td>
         </tr>
+        <% } %>
     </table>
 </body>
 </html>
