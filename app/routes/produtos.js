@@ -1,4 +1,4 @@
-// Como eu dei o required no arquivo express.js, não se faz necessário de chamar o arquivo de conexão dentro do própria controller
+// Como eu dei o required no arquivo express.js, nÃ£o se faz necessÃ¡rio de chamar o arquivo de conexÃ£o dentro do prÃ³pria controller
 // var dbConnection = require('../infra/dbConnection');
 
 module.exports = function(app){
@@ -7,10 +7,10 @@ module.exports = function(app){
         //a funcao send cospe o dado na tela 
         //res.send('<h1>produto</h1>')    
 
-        //váriável de config de conexão que puxa do arquivo de conexão. O uso desta maneira se faz necessário quando damos o required na própria controller. como estamos chamando do express não precisamos mais fazer desta maneira
+        //variÃ¡vel de config de conexÃ£o que puxa do arquivo de conexÃ£o. O uso desta maneira se faz necessÃ¡rio quando damos o required na prÃ³pria controller. como estamos chamando do express nÃ£o precisamos mais fazer desta maneira
         // var connection = dbConnection();        
         
-        //Como não estamos mais chamando a função de dentro da própria controller, preciso indicar o caminho do arquivo de conexão
+        //Como nÃ£o estamos mais chamando a funÃ§Ã£o de dentro da prÃ³pria controller, preciso indicar o caminho do arquivo de conexÃ£o
         var connection = app.infra.dbConnection();
         
         // Arquivo reservado para guardar querys
@@ -25,6 +25,16 @@ module.exports = function(app){
         
         app.get('/',function(req,res){
             //a funcao send cospe o dado na tela
-            //res.send('home')
+            res.render("home/home");   
         })
-}
+
+        app.get('/clientes',function(req,res){
+            //a funcao send cospe o dado na tela
+            res.render("clientes/clientes");   
+        })
+        
+        app.get('/vendas',function(req,res){
+            //a funcao send cospe o dado na tela
+            res.render("vendas/vendas");   
+        })
+    }

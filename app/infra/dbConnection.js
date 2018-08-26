@@ -2,16 +2,18 @@
 var mysql = require('mysql');
 
 function createDBConnection(){
-    //conecta no banco de dados acionando o mÈtodo createconnection, e como parametro s„o os dados de conex„o 
+    //conecta no banco de dados acionando o m√©todo createconnection, e como parametro s√£o os dados de conex√£o 
     var connection = mysql.createConnection({
         host: 'localhost',
         user: 'root',
-        password: '',
-        database: 'estudo'
+        password: '979899',
+        database: 'lamotta_com_br'
     });
+
+    return connection;
 }
 
-// wrapper, È uma funÁ„o que embrulhaoutra funÁ„o, pois assim a conex„o sÛ vai ser invocada quando chamar o objeto, e n„o ser· feito o tempo todo
+// wrapper, √© uma fun√ß√£o que embrulhaoutra fun√ß√£o, pois assim a conex√£o s√≥ vai ser invocada quando chamar o objeto, e n√£o ser√° feito o tempo todo
 module.exports = function(){
     return createDBConnection;
 }
