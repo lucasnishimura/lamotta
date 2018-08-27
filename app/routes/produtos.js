@@ -14,7 +14,7 @@ module.exports = function(app){
         var connection = app.infra.dbConnection();
         
         // Arquivo reservado para guardar querys
-        var produtosBanco = app.infra.produtosBanco(connection);
+        var produtosBanco = new app.infra.produtosBanco(connection);
 
         produtosBanco.lista(function(err,results){
             //precisamos passar no segundo parametro um array com os resultados
