@@ -15,9 +15,9 @@ module.exports = function(){
     //diz aonde ficam as views, caso nÃ£o especifique, ele procura as views na pasta views que deve se encontrar na raiz do projeto
     app.set('views','./app/views');
 
-    //load('routes').into(app); com isso queremos dizer que "routes deve ser carregado dentro da app", podemos encadear outras informações junto
-    load('routes',{cwd: 'app'}) //para não procurar no sistema inteiro o 'cwd' indica dentro de qual pasta ele deve procurar
-        .then('infra') //significa que depois de carregar as rotas "Então" carregue tudo dentro de infra
+    //load('routes').into(app); com isso queremos dizer que "routes deve ser carregado dentro da app", podemos encadear outras informaï¿½ï¿½es junto
+    load('routes',{cwd: 'app'}) //para nÃ£o procurar no sistema inteiro o 'cwd' indica dentro de qual pasta ele deve procurar
+        .then('infra') //significa que depois de carregar as rotas "EntÃ£o" carregue tudo dentro de infra
         .into(app);
 
     return app;

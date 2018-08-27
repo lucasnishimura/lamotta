@@ -14,27 +14,27 @@ module.exports = function(app){
         var connection = app.infra.dbConnection();
         
         // Arquivo reservado para guardar querys
-        var produtosBanco = app.infra.produtosBanco;
+        var produtosBanco = app.infra.produtosBanco(connection);
 
-        produtosBanco.lista(connection,function(err,results){
+        produtosBanco.lista(function(err,results){
             //precisamos passar no segundo parametro um array com os resultados
             res.render("produtos/lista",{lista:results});   
         });
         connection.end();
     })
         
-        app.get('/',function(req,res){
-            //a funcao send cospe o dado na tela
-            res.render("home/home");   
-        })
+    app.get('/',function(req,res){
+        //a funcao send cospe o dado na tela
+        res.render("home/home");   
+    })
 
-        app.get('/clientes',function(req,res){
-            //a funcao send cospe o dado na tela
-            res.render("clientes/clientes");   
-        })
-        
-        app.get('/vendas',function(req,res){
-            //a funcao send cospe o dado na tela
-            res.render("vendas/vendas");   
-        })
+    app.get('/clientes',function(req,res){
+        //a funcao send cospe o dado na tela
+        res.render("clientes/clientes");   
+    })
+    
+    app.get('/vendas',function(req,res){
+        //a funcao send cospe o dado na tela
+        res.render("vendas/vendas");   
+    })
     }
