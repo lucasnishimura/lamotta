@@ -3,7 +3,12 @@
 
 module.exports = function(app){
     //Rotas
-    app.get('/produtos',function(req,res){
+    app.get('/',function(req,res){
+        //a funcao send cospe o dado na tela
+        res.render("home/home");   
+    })
+
+    var listaProdutos = function(req,res){
         //a funcao send cospe o dado na tela 
         //res.send('<h1>produto</h1>')    
 
@@ -21,11 +26,24 @@ module.exports = function(app){
             res.render("produtos/lista",{lista:results});   
         });
         connection.end();
-    })
+    }
+    
+    app.get('/produtos',listaProdutos)
         
-    app.get('/',function(req,res){
-        //a funcao send cospe o dado na tela
-        res.render("home/home");   
+
+    app.get('/produtos/inserir',function(req,res){
+        res.render("produtos/inserir");   
+    })
+
+    app.post('/produtos/salva',function(req,res){
+        var connection = app.infra.dbConnection();
+        var produtosBanco = new app.infra.produtosBanco(connection);
+        
+        //dados do post
+        var dados_form = req.body;
+        produtosBanco.salva(dados_form,function(err,results){
+            res.redirect('/produtos');
+        })        
     })
 
     app.get('/clientes',function(req,res){
