@@ -35,7 +35,7 @@ module.exports = function(app){
         res.render("produtos/inserir");   
     })
 
-    app.post('/produtos/salva',function(req,res){
+    app.post('/produtos',function(req,res){
         var connection = app.infra.dbConnection();
         var produtosBanco = new app.infra.produtosBanco(connection);
         
