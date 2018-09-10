@@ -20,6 +20,8 @@ module.exports = function(){
     
     //recebe funções que serão aplicadas no requeest na ordem que definimos abaixo
     app.use(bodyParser.urlencoded({extended: true})); 
+    //Caso n�o encontre um formul�rio enviado via form, procura um enviado via json
+    app.use(bodyParser.json());
 
     //load('routes').into(app); com isso queremos dizer que "routes deve ser carregado dentro da app", podemos encadear outras informa��es junto
     load('routes',{cwd: 'app'}) //para não procurar no sistema inteiro o 'cwd' indica dentro de qual pasta ele deve procurar

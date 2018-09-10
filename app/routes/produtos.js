@@ -8,7 +8,7 @@ module.exports = function(app){
         res.render("home/home");   
     })
 
-    var listaProdutos = function(req,res){
+    app.get('/produtos',function(req,res){
         //a funcao send cospe o dado na tela 
         //res.send('<h1>produto</h1>')    
 
@@ -22,13 +22,21 @@ module.exports = function(app){
         var produtosBanco = new app.infra.produtosBanco(connection);
 
         produtosBanco.lista(function(err,results){
-            //precisamos passar no segundo parametro um array com os resultados
-            res.render("produtos/lista",{lista:results});   
+            // Para não se criar duas funções com códigos repetidos, é usado essa função format para verificar no header qual o tipo de resposta ele quer que retorne, por padrão o navegador retorna HTML. no entanto, caso queira usar como api, é necessário colocar application/json no header da chamada
+            res.format({
+                html: function(){
+                    //precisamos passar no segundo parametro um array com os resultados
+                    res.render("produtos/lista",{lista:results});   
+                },
+                json: function(){
+                    res.json(results);
+                }
+            })
         });
         connection.end();
-    }
-    
-    app.get('/produtos',listaProdutos)
+    })        
+
+    // app.get('/produtos',listaProdutos) //posso criar uma varável e colocar essa função dentro dessa variável, caso eu for usar em mais de um lugar
         
 
     app.get('/produtos/inserir',function(req,res){
