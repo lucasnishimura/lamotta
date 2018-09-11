@@ -22,7 +22,7 @@ module.exports = function(app){
         var produtosBanco = new app.infra.produtosBanco(connection);
 
         produtosBanco.lista(function(err,results){
-            // Para não se criar duas funções com códigos repetidos, é usado essa função format para verificar no header qual o tipo de resposta ele quer que retorne, por padrão o navegador retorna HTML. no entanto, caso queira usar como api, é necessário colocar application/json no header da chamada
+            // Para nï¿½o se criar duas funï¿½ï¿½es com cï¿½digos repetidos, ï¿½ usado essa funï¿½ï¿½o format para verificar no header qual o tipo de resposta ele quer que retorne, por padrï¿½o o navegador retorna HTML. no entanto, caso queira usar como api, ï¿½ necessï¿½rio colocar application/json no header da chamada
             res.format({
                 html: function(){
                     //precisamos passar no segundo parametro um array com os resultados
@@ -36,11 +36,11 @@ module.exports = function(app){
         connection.end();
     })        
 
-    // app.get('/produtos',listaProdutos) //posso criar uma varável e colocar essa função dentro dessa variável, caso eu for usar em mais de um lugar
+    // app.get('/produtos',listaProdutos) //posso criar uma varï¿½vel e colocar essa funï¿½ï¿½o dentro dessa variï¿½vel, caso eu for usar em mais de um lugar
         
 
     app.get('/produtos/inserir',function(req,res){
-        res.render("produtos/inserir");   
+        res.render("produtos/inserir",{errosValidacao:{},produtoInfo:{}});   
     })
 
     app.post('/produtos',function(req,res){
@@ -49,6 +49,16 @@ module.exports = function(app){
         
         //dados do post
         var dados_form = req.body;
+        req.assert('nome','Nome Ã© obrigatÃ³rio').notEmpty();
+        req.assert('preco','Preco vazio').notEmpty();
+        req.assert('preco','Formato invÃ¡lido').isFloat();
+        
+        var erros = req.validationErrors();
+        if(erros){
+            res.render('produtos/inserir',{errosValidacao : erros, produtoInfo : dados_form});
+            return false;
+        }
+
         produtosBanco.salva(dados_form,function(err,results){
             res.redirect('/produtos');
         })        

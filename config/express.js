@@ -7,6 +7,9 @@ var load = require('express-load');
 //carega o body parse que trata o recebimento via post
 var bodyParser = require('body-parser');
 
+//carega o body parse que trata o recebimento via post
+var expressValidator = require('express-validator');
+
 //module eh a variavel que referencia o objeto em si, exports que a funcao que vc quer que retorne, 
 module.exports = function(){
 
@@ -20,8 +23,10 @@ module.exports = function(){
     
     //recebe funções que serão aplicadas no requeest na ordem que definimos abaixo
     app.use(bodyParser.urlencoded({extended: true})); 
-    //Caso n�o encontre um formul�rio enviado via form, procura um enviado via json
+    //Caso não encontre um formulário enviado via form, procura um enviado via json
     app.use(bodyParser.json());
+
+    app.use(expressValidator());
 
     //load('routes').into(app); com isso queremos dizer que "routes deve ser carregado dentro da app", podemos encadear outras informa��es junto
     load('routes',{cwd: 'app'}) //para não procurar no sistema inteiro o 'cwd' indica dentro de qual pasta ele deve procurar
