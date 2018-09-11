@@ -12,14 +12,15 @@ var configuracoes = {
 };
 
 var client = http.request(configuracoes,function(res){
+    // console.log(res.statusCode)
     res.on('data',function(body){
+        console.log('Corpo:'+body)
     });
 });
-
 var produto = {
-    nome: 'Produto aleatório',
+    nome: '',
     preco: '2.00',
-    descricao: 'Esse produto é muito bom'
+    descricao: 'Esse produto � muito bom'
 };
 
 //só dispara a requisição aqui

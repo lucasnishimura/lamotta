@@ -55,7 +55,14 @@ module.exports = function(app){
         
         var erros = req.validationErrors();
         if(erros){
-            res.render('produtos/inserir',{errosValidacao : erros, produtoInfo : dados_form});
+            res.format({
+                html: function(){
+                    res.status(400).render('produtos/inserir',{errosValidacao : erros, produtoInfo : dados_form});
+                },
+                json: function(){
+                    res.status(400).json(erros);
+                }
+            })
             return false;
         }
 
