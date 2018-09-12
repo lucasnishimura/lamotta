@@ -21,7 +21,11 @@ module.exports = function(app){
         // Arquivo reservado para guardar querys
         var produtosBanco = new app.infra.produtosBanco(connection);
 
-        produtosBanco.lista(function(err,results){
+        produtosBanco.lista(function(err,results,next){
+            if(err){
+                //next executa a próxima função da cadeia de funções
+                return next(err);
+            }
             // Para n�o se criar duas fun��es com c�digos repetidos, � usado essa fun��o format para verificar no header qual o tipo de resposta ele quer que retorne, por padr�o o navegador retorna HTML. no entanto, caso queira usar como api, � necess�rio colocar application/json no header da chamada
             res.format({
                 html: function(){
