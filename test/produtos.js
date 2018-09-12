@@ -5,11 +5,12 @@
 // - Se nosso cadastro aceita urlencoded
 
 var http = require('http');
+var assert = require('assert');
 
 //Descrve o cenário que estamos testando, no caso produtoscontroller
 describe('#ProdutosController',function(){
     //dado o cenário, o que ue quero verificar?
-    it('#listagem json',function(funcaoFinalizacao){
+    it('#listagem json',function(done){
         var configuracoes = {
             hostname: 'localhost',
             port: 3000,
@@ -19,13 +20,10 @@ describe('#ProdutosController',function(){
             }
         };
         http.get(configuracoes,function(res){
-            if(res.statusCode == 200){
-                console.log('Status ok');
-            }
-            if(res.headers['content-type'] == 'application/json; charset=utf-8'){
-                console.log('Content type ok');
-            }
-            funcaoFinalizacao();
+            assert.equal(res.statusCode,200); //modulo que simula um if
+            assert.equal(res.headers['content-type'],'application/json; charset=utf-8'); //modulo que simula um if
+            
+            done();
         });
     });
 });
