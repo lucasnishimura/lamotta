@@ -18,23 +18,40 @@ module.exports = function(){
     //faz a inserÁ„o de recursos est·ticos, static È um middleware do express
     app.use(express.static('./app/public'));
 
+    
     //define uma string chamada 'view engine' e o nome da engine instalada 'EJS' (embeed javascript)
     app.set('view engine','ejs');
-
+    
     //diz aonde ficam as views, caso n√£o especifique, ele procura as views na pasta views que deve se encontrar na raiz do projeto
     app.set('views','./app/views');
     
-    //recebe fun√ß√µes que ser√£o aplicadas no requeest na ordem que definimos abaixo
+    //recebe funÁıes que ser„o aplicadas no requeest na ordem que definimos abaixo
     app.use(bodyParser.urlencoded({extended: true})); 
-    //Caso n√£o encontre um formul√°rio enviado via form, procura um enviado via json
+    //Caso n√£o encontre um formul·rio enviado via form, procura um enviado via json
     app.use(bodyParser.json());
-
+    
     app.use(expressValidator());
-
+    
+    
     //load('routes').into(app); com isso queremos dizer que "routes deve ser carregado dentro da app", podemos encadear outras informaÔøΩÔøΩes junto
-    load('routes',{cwd: 'app'}) //para n√£o procurar no sistema inteiro o 'cwd' indica dentro de qual pasta ele deve procurar
-        .then('infra') //significa que depois de carregar as rotas "Ent√£o" carregue tudo dentro de infra
-        .into(app);
+    load('routes',{cwd: 'app'}) //para n„o procurar no sistema inteiro o 'cwd' indica dentro de qual pasta ele deve procurar
+    .then('infra') //significa que depois de carregar as rotas "Ent„o" carregue tudo dentro de infra
+    .into(app);
+    
+
+    // se n„o existir a p·gina chama essa
+    app.use(function(req,res,next){
+        res.status(404).render('erros/404');
+        next();
+    })
+
+    app.use(function(error,req,res,next){
+        if(process.eventNames.NODE_ENV == 'production'){
+            res.status(500).render('erros/500');
+            return;
+        }
+        next(error);
+    })
 
     return app;
 }
