@@ -13,4 +13,12 @@
   <a href="/vendas">Vendas</a>
   <a href="/Clientes">Clientes</a>
 </body>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+  var socket = io();
+  socket.on('novaPromocao',function(data){
+    console.log(data);
+    alert("Produto em promoção")
+  })
+</script>
 </html>
