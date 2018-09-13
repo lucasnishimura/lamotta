@@ -1,24 +1,65 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>La motta</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="/css/style.css" type="text/css">
-</head>
+
+   <!-- Links de js e css -->
+<%include ../layouts/head.ejs%>
 <body>
-  <h1>La Motta - Chocolateria</h1>
-  <a href="/produtos">Produtos</a>
-  <a href="/vendas">Vendas</a>
-  <a href="/Clientes">Clientes</a>
+
+  <!-- Navbar goes here -->
+  <!-- InclusÃ£o do  header geral -->
+  <%include ../layouts/header.ejs%>
+  
+  <!-- Page Layout here -->
+  <div class="row no-row">
+    
+    <%include ../layouts/menu-lateral.ejs%>
+  
+        <div class="col s12 m8 l9">
+
+            <div class="row">
+                <div class="col s12 m4">
+                  <div class="card blue-grey darken-1">
+                    <div class="card-content white-text">
+                      <span class="card-title">Card Title</span>
+                      <p>I am a very simple card. I am good at containing small bits of information.
+                      I am convenient because I require little markup to use effectively.</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col s12 m4">
+                  <div class="card blue-grey darken-1">
+                    <div class="card-content white-text">
+                      <span class="card-title">Card Title</span>
+                      <p>I am a very simple card. I am good at containing small bits of information.
+                      I am convenient because I require little markup to use effectively.</p>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="col s12 m4">
+                  <div class="card blue-grey darken-1">
+                    <div class="card-content white-text">
+                      <span class="card-title">Card Title</span>
+                      <p>I am a very simple card. I am good at containing small bits of information.
+                      I am convenient because I require little markup to use effectively.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+        </div>
+  
+    </div>
+
 </body>
 <script src="/socket.io/socket.io.js"></script>
 <script>
   var socket = io();
   socket.on('novaPromocao',function(data){
     console.log(data);
-    alert("Produto em promoção")
+    alert("Produto em promoÃ§Ã£o")
   })
 </script>
 </html>

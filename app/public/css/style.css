@@ -3,6 +3,53 @@ table{
 }
 
 a{
-    color: aquamarine;
+    color: black !important;
+    opacity: 0.6;
     font-size: 16px;
+}
+
+.menu-geral{
+    height: 130px;
+    background-color: #481700;
+    border-bottom: 10px solid #ee6e73;
+}
+
+h1{
+    font-size: 34pt !important;
+}
+
+.menu-lateral{
+    height: 100vh !important;
+    background-color: #ccc;
+    padding: 0rem !important;
+    -webkit-box-shadow: 9px 0px 10px -7px rgba(0,0,0,0.56);
+-moz-box-shadow: 9px 0px 10px -7px rgba(0,0,0,0.56);
+box-shadow: 9px 0px 10px -7px rgba(0,0,0,0.56);
+
+}
+
+.widget{
+    background: red;
+}
+
+.no-row{
+    margin-bottom: 0 !important;
+}
+li{
+    padding-bottom: 15px !important;
+    padding-top: 15px !important;
+    vertical-align: middle !important;
+}
+li:hover {
+    background-color: rgba(0,0,0,0.1);
+    transition: 0.6s
+}
+#nav-mobile{
+    margin: 0 !important;
+}
+
+@media only screen and (min-width: 993px){
+    .container {
+        width: 90% !important;
+    }
 }
