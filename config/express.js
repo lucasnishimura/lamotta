@@ -14,6 +14,9 @@ var expressValidator = require('express-validator');
 module.exports = function(){
 
     var app = express();
+    
+    //faz a inserção de recursos estáticos, static é um middleware do express
+    app.use(express.static('./app/public'));
 
     //define uma string chamada 'view engine' e o nome da engine instalada 'EJS' (embeed javascript)
     app.set('view engine','ejs');

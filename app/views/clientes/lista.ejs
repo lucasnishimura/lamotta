@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Clientes</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+  <a href="produtos/inserir">Inserir novo produto</a><br>
+    <a href="/">Voltar</a>
+    <table>
+        <tr>
+            <td>Id</td>
+            <td>Nome</td>
+            <td>Cliente</td>
+            <td>Empresa</td>
+        </tr>
+        <% for(var i=0;i<lista.length;i++){ %>
+        <tr>
+            <td><%=lista[i].id%></td>
+            <td><%=lista[i].nome%></td>
+            <td><%=lista[i].cliente%></td>
+            <td><%=lista[i].empresa%></td>
+        </tr>
+        <% } %>
+    </table>
+</body>
+</body>
+</html>

@@ -3,11 +3,6 @@
 
 module.exports = function(app){
     //Rotas
-    app.get('/',function(req,res){
-        //a funcao send cospe o dado na tela
-        res.render("home/home");   
-    })
-
     app.get('/produtos',function(req,res){
         //a funcao send cospe o dado na tela 
         //res.send('<h1>produto</h1>')    
@@ -24,6 +19,7 @@ module.exports = function(app){
         produtosBanco.lista(function(err,results,next){
             if(err){
                 //next executa a próxima função da cadeia de funções
+                console.log('Erro no banco de dados');
                 return next(err);
             }
             // Para n�o se criar duas fun��es com c�digos repetidos, � usado essa fun��o format para verificar no header qual o tipo de resposta ele quer que retorne, por padr�o o navegador retorna HTML. no entanto, caso queira usar como api, � necess�rio colocar application/json no header da chamada
@@ -74,14 +70,4 @@ module.exports = function(app){
             res.redirect('/produtos');
         })        
     })
-
-    app.get('/clientes',function(req,res){
-        //a funcao send cospe o dado na tela
-        res.render("clientes/clientes");   
-    })
-    
-    app.get('/vendas',function(req,res){
-        //a funcao send cospe o dado na tela
-        res.render("vendas/vendas");   
-    })
-    }
+}
