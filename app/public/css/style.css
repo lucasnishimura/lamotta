@@ -3,33 +3,36 @@ table{
 }
 
 a{
-    color: black !important;
+    color: white !important;
     opacity: 0.6;
     font-size: 16px;
 }
 
-.menu-geral{
-    height: 130px;
-    background-color: #481700;
-    border-bottom: 10px solid #ee6e73;
+.logo-principal{
+  width: 20%;
 }
 
-h1{
-    font-size: 34pt !important;
+/* .div-titulo{
+  border-bottom: 1px solid #ccc;
+} */
+
+.titulo-pagina{
+  font-size: 20px;
+  display: inline;
+}
+
+.titulo-pagina-desc{
+  opacity: 0.6
 }
 
 .menu-lateral{
     height: 100vh !important;
-    background-color: #ccc;
+    background-color: #67302A;
     padding: 0rem !important;
     -webkit-box-shadow: 9px 0px 10px -7px rgba(0,0,0,0.56);
 -moz-box-shadow: 9px 0px 10px -7px rgba(0,0,0,0.56);
 box-shadow: 9px 0px 10px -7px rgba(0,0,0,0.56);
 
-}
-
-.widget{
-    background: red;
 }
 
 .no-row{
