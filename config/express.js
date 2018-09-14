@@ -17,7 +17,7 @@ module.exports = function(){
     
     //faz a inserção de recursos estáticos, static é um middleware do express
     app.use(express.static('./app/public'));
-
+    app.use(express.static('./'));
     
     //define uma string chamada 'view engine' e o nome da engine instalada 'EJS' (embeed javascript)
     app.set('view engine','ejs');
