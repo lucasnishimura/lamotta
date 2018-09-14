@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html>
+    <!-- Link js e css -->
+    <%include ../layouts/header.ejs %>
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,21 +11,41 @@
     <script src="main.js"></script>
 </head>
 <body>
-    <a href="produtos/inserir">Inserir novo produto</a><br>
-    <a href="/">Voltar</a>
-    <table>
-        <tr>
-            <td>Id</td>
-            <td>Nome</td>
-            <td>Preço</td>
-        </tr>
-        <% for(var i=0;i<lista.length;i++){ %>
-        <tr>
-            <td><%=lista[i].id%></td>
-            <td><%=lista[i].nome%></td>
-            <td><%=lista[i].preco%></td>
-        </tr>
-        <% } %>
-    </table>
+    <div class="row no-row">
+        <%include ../layouts/menu-lateral.ejs%>
+        <div class="col s12 m8 l10">
+            <div class="row"></div>
+            <div class="row">
+                <div class="col s12 m12 div-titulo">
+                <h1 class="titulo-pagina">Produtos</h1><p class="titulo-pagina titulo-pagina-desc"> | Listagem</p> 
+                <hr>
+                </div>
+            </div>
+            <div class="row">
+                <!-- <a href="produtos/inserir">Inserir novo produto</a><br>
+                <a href="/">Voltar</a> -->
+                <div class="col l1"></div>
+                <div class="col l10">
+                    <table>
+                        <tr>
+                            <td>Id</td>
+                            <td>Nome</td>
+                            <td>Preço</td>
+                        </tr>
+                        <% for(var i=0;i<lista.length;i++){ %>
+                        <tr>
+                            <td><%=lista[i].id%></td>
+                            <td><%=lista[i].nome%></td>
+                            <td><%=lista[i].preco%></td>
+                        </tr>
+                        <% } %>
+                    </table>
+
+                </div>
+                <div class="col 1"></div>
+            </div>
+
+        </div>
+    </div>
 </body>
 </html>

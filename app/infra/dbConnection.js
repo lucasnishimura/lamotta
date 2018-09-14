@@ -8,10 +8,10 @@ function createDBConnection(){
         var connection = mysql.createConnection({
             host: 'localhost',
             user: 'root',
-            password: '979899', //usa em casa
-            // password: '', //usa no trampo
-            database: 'lamotta_com_br' //usa em casa
-            // database: 'estudo' //usa no trampo
+            // password: '979899', //usa em casa
+            password: '', //usa no trampo
+            // database: 'lamotta_com_br' //usa em casa
+            database: 'estudo' //usa no trampo
         });
     }
 

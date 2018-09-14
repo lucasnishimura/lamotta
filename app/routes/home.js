@@ -1,6 +1,13 @@
 module.exports = function(app){
     app.get('/',function(req,res){
-        //a funcao send cospe o dado na tela
-        res.render("home/home");   
+
+        var connection = app.infra.dbConnection();
+        var clientesBanco = new app.infra.clientesBanco(connection);
+
+        clientesBanco.total(function(erros,resultados){            
+            res.render("home/home",{lista:resultados[0]});   
+        });
+        
+        connection.end();
     })
 }
