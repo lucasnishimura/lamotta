@@ -23,4 +23,8 @@ module.exports = function(app){
         //a funcao send cospe o dado na tela
         res.render("coreui/widgets");   
     })
+    app.get('/coreui/widgets',function(req,res){
+        //a funcao send cospe o dado na tela
+        res.render("coreui/widgets");   
+    })
 }
