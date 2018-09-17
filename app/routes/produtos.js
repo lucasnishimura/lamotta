@@ -4,19 +4,18 @@
 module.exports = function(app){
     //Rotas
     app.get('/produtos',function(req,res){
-        //a funcao send cospe o dado na tela 
-        //res.send('<h1>produto</h1>')    
-
-        //variável de config de conexão que puxa do arquivo de conexão. O uso desta maneira se faz necessário quando damos o required na própria controller. como estamos chamando do express não precisamos mais fazer desta maneira
-        // var connection = dbConnection();        
-        
-        //Como não estamos mais chamando a função de dentro da própria controller, preciso indicar o caminho do arquivo de conexão
+       
         var connection = app.infra.dbConnection();
-        
-        // Arquivo reservado para guardar querys
         var produtosBanco = new app.infra.produtosBanco(connection);
 
-        produtosBanco.lista(function(err,results,next){
+       //dados enviados via get
+        var dados_filtro = {
+            id: decodeURI(req.query.id),
+            nome: decodeURI(req.query.nome),
+            preco: decodeURI(req.query.preco)
+       }
+
+        produtosBanco.lista(dados_filtro,function(err,results,next){
             if(err){
                 //next executa a próxima função da cadeia de funções
                 console.log('Erro no banco de dados');
@@ -26,7 +25,7 @@ module.exports = function(app){
             res.format({
                 html: function(){
                     //precisamos passar no segundo parametro um array com os resultados
-                    res.render("produtos/lista",{lista:results});   
+                    res.render("produtos/lista",{lista:results,filtros:dados_filtro});   
                 },
                 json: function(){
                     res.json(results);
@@ -34,8 +33,8 @@ module.exports = function(app){
             })
         });
         connection.end();
-    })        
-
+    })
+    
     // app.get('/produtos',listaProdutos) //posso criar uma var�vel e colocar essa fun��o dentro dessa vari�vel, caso eu for usar em mais de um lugar
         
 
@@ -43,7 +42,7 @@ module.exports = function(app){
         res.render("produtos/inserir",{errosValidacao:{},produtoInfo:{}});   
     })
 
-    app.post('/produtos',function(req,res){
+    app.post('/produtos/inserir',function(req,res){
         var connection = app.infra.dbConnection();
         var produtosBanco = new app.infra.produtosBanco(connection);
         

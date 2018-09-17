@@ -32,19 +32,19 @@ Marcar querys j� executas
 -- ENGINE = InnoDB;
 
 
-CREATE TABLE `usuario` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `nome` varchar(255) DEFAULT NULL,
-  `email` varchar(255) DEFAULT NULL,
-  `senha` varchar(255) DEFAULT NULL,
-  `tipo` varchar(150) DEFAULT '',
-  `permissoes` varchar(255) DEFAULT NULL,
-  `status` int(1) NOT NULL DEFAULT '1' COMMENT '1 = ativo, 2 = inativo',
-  `excluido` int(1) DEFAULT '0' COMMENT '0 = não, 1 = sim',
-  `time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `conta_id` int(10) DEFAULT NULL,
-  `ip` varchar(100) DEFAULT NULL,
-  `usuario_id` int(10) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
-SELECT * FROM lamotta_com_br.usuario;
+-- CREATE TABLE `usuario` (
+--   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+--   `nome` varchar(255) DEFAULT NULL,
+--   `email` varchar(255) DEFAULT NULL,
+--   `senha` varchar(255) DEFAULT NULL,
+--   `tipo` varchar(150) DEFAULT '',
+--   `permissoes` varchar(255) DEFAULT NULL,
+--   `status` int(1) NOT NULL DEFAULT '1' COMMENT '1 = ativo, 2 = inativo',
+--   `excluido` int(1) DEFAULT '0' COMMENT '0 = não, 1 = sim',
+--   `time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+--   `conta_id` int(10) DEFAULT NULL,
+--   `ip` varchar(100) DEFAULT NULL,
+--   `usuario_id` int(10) DEFAULT NULL,
+--   PRIMARY KEY (`id`)
+-- ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+-- SELECT * FROM lamotta_com_br.usuario;

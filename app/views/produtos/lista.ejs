@@ -7,7 +7,7 @@
 * Licensed under MIT (https://coreui.io/license)
 -->
 
-<html lang="en">
+<html lang="pt">
 <!-- Header de cima -->
 <%include ../layouts/header.ejs%>
 
@@ -50,23 +50,42 @@
             <div class="row no-row">
               <div class="col-md-12">              
                 <div class="row">
-                  <div class="col-md-9 div-titulo">
+                  <div class="col-md-11 div-titulo">
                   <h1 class="titulo-pagina">Produtos</h1><p class="titulo-pagina titulo-pagina-desc"> | Listagem</p> 
                   </div>
-                  <div class="col-md-3 pull-right">
+                  <div class="col-md-1 pull-right">
                     <a class="btn" href="/produtos/inserir"><i class="fa fa-2x fa-plus-square"></i></a>
                   </div>
                 </div>
                 <hr>
+                <form>
+                  <div class="row form-group">
+                    <div class="col-md-1">
+                      <p><b>Filtros:</b></p>
+                    </div>
+                    <div class="col-md-1">
+                      <input type="text" class="form-control" name="id" id="id" value="<%=filtros.id%>" placeholder="#ID">
+                    </div>
+                    <div class="col-md-3">
+                      <input type="text" class="form-control" name="nome" id="nome" value="<%=filtros.nome%>" placeholder="Nome">
+                    </div>
+                    <div class="col-md-3">
+                      <input type="text" class="form-control" name="preco" id="preco" value="<%=filtros.preco%>" placeholder="Preço">
+                    </div>
+                    <div class="col-md-4">
+                      <button type="button" id="buscar" class="btn btn-success pull-right">Buscar</button>
+                    </div>
+                  </div>
+                </form>
                 <div class="row "> 
                   <!-- <a href="produtos/inserir">Inserir novo produto</a><br>
                   <a href="/">Voltar</a> -->
                   <div class="col-md-12">
                     <table class="table">
-                      <tr>
-                        <td>Id</td>
-                        <td>Nome</td>
-                        <td>Preço</td>
+                      <tr class="table-title">
+                        <th>Id</th>
+                        <th>Nome</th>
+                        <th>Preço</th>
                       </tr>
                       <% for(var i=0;i<lista.length;i++){ %>
                       <tr>
@@ -94,4 +113,9 @@
     </div>
     <%include ../layouts/footer.ejs%>
   </body>
+  <script>
+    $(document).on('click','#buscar',function(){
+      window.location = '/produtos?id='+$('#id').val()+'&nome='+$('#nome').val()+'&preco='+$('#preco').val();
+    })
+  </script>
 </html>

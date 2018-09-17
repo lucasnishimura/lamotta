@@ -4,7 +4,8 @@ module.exports = function(app){
         var connection = app.infra.dbConnection();
         var clientesBanco = new app.infra.clientesBanco(connection);
 
-        clientesBanco.total(function(erros,resultados){            
+        console.log('Usuário: '+req.user);
+        clientesBanco.total(function(erros,resultados){ 
             res.render("home/index",{lista:resultados[0]});   
         });
         
