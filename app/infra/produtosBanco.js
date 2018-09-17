@@ -7,15 +7,15 @@ ProdutosBanco.prototype.lista =  function(filtros,callback){
 	Filtronome = '';
 	Filtropreco = '';
 // console.log(filtros)
-	if(filtros.id != "" && filtros.id != 'undefined'){
+	if(filtros.id != ""){
 		var Filtroid = " and id = "+filtros.id;
 	}
 	
-	if(filtros.nome != "" && filtros.nome != 'undefined'){
+	if(filtros.nome != ""){
 		var Filtronome = " and nome like '%"+filtros.nome+"%'";
 	}
 	
-	if(filtros.preco != "" && filtros.preco != 'undefined'){
+	if(filtros.preco != ""){
 		var Filtropreco = " and preco = '"+filtros.preco+"'";
 	}
 	

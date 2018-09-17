@@ -42,7 +42,7 @@ module.exports = function(app){
         res.render("produtos/inserir",{errosValidacao:{},produtoInfo:{}});   
     })
 
-    app.post('/produtos/inserir',function(req,res){
+    app.post('/produtos',function(req,res){
         var connection = app.infra.dbConnection();
         var produtosBanco = new app.infra.produtosBanco(connection);
         
