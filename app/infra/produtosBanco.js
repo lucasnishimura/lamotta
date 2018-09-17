@@ -19,7 +19,7 @@ ProdutosBanco.prototype.lista =  function(filtros,callback){
 		var Filtropreco = " and preco = '"+filtros.preco+"'";
 	}
 	
-	this.connection.query('select * from produtos where id > 0'+Filtronome+Filtroid+Filtropreco,callback);
+	this.connection.query('select * from produtos where id > 0'+Filtronome+Filtroid+Filtropreco+' order by id desc',callback);
 }	
 
 ProdutosBanco.prototype.salva =  function(produto,callback){

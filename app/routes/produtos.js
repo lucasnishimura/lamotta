@@ -10,9 +10,9 @@ module.exports = function(app){
 
        //dados enviados via get
         var dados_filtro = {
-            id: decodeURI(req.query.id),
-            nome: decodeURI(req.query.nome),
-            preco: decodeURI(req.query.preco)
+            id: req.query.id != undefined ? decodeURI(req.query.id) : '',
+            nome: req.query.nome != undefined ? decodeURI(req.query.nome) : '',
+            preco: req.query.preco != undefined ? decodeURI(req.query.preco) : ''
        }
 
         produtosBanco.lista(dados_filtro,function(err,results,next){
