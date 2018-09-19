@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<!--
+* CoreUI - Free Bootstrap Admin Template
+* @version v2.0.0
+* @link https://coreui.io
+* Copyright (c) 2018 creativeLabs ŝukasz Holeczek
+* Licensed under MIT (https://coreui.io/license)
+-->
+
+<html lang="pt">
+<!-- Header de cima -->
+<%include ../layouts/header.ejs%>
+
+  <body class="app header-fixed sidebar-fixed aside-menu-fixed sidebar-lg-show">
+
+    <%include ../layouts/header-topo.ejs%>
+    
+    <div class="app-body">
+        <%include ../layouts/menu-lateral.ejs%>
+        <!-- side bar -->
+
+      
+      <main class="main">
+        <!-- Breadcrumb-->
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">Home</li>
+          <li class="breadcrumb-item">
+            <a href="#">Admin</a>
+          </li>
+          <li class="breadcrumb-item active">Dashboard</li>
+          <!-- Breadcrumb Menu-->
+          <li class="breadcrumb-menu d-md-down-none">
+            <div class="btn-group" role="group" aria-label="Button group">
+              <a class="btn" href="#">
+                <i class="icon-speech"></i>
+              </a>
+              <a class="btn" href="./">
+                <i class="icon-graph"></i>  Dashboard</a>
+              <a class="btn" href="#">
+                <i class="icon-settings"></i>  Settings</a>
+            </div>
+          </li>
+        </ol>
+        <div class="container-fluid">
+
+
+
+          <!--  -->
+          <div class="animated fadeIn">
+            <div class="row no-row">
+              <div class="col-md-12">              
+                <div class="row">
+                  <div class="col-md-11 div-titulo">
+                  <h1 class="titulo-pagina">Vendas</h1><p class="titulo-pagina titulo-pagina-desc"> | Listagem</p> 
+                  </div>
+                  <div class="col-md-1 pull-right">
+                    <a class="btn" href="/Vendas/inserir"><i class="fa fa-2x fa-plus-square"></i></a>
+                  </div>
+                </div>
+                <hr>
+                <form>
+                  <div class="row form-group">
+                    <div class="col-md-1">
+                      <p><b>Filtros:</b></p>
+                    </div>
+                    <div class="col-md-1">
+                      <input type="text" class="form-control" name="id" id="id" value="<%=filtros.id%>" placeholder="#ID">
+                    </div>
+                    <div class="col-md-3">
+                      <input type="text" class="form-control" name="nome" id="nome" value="<%=filtros.nome%>" placeholder="Nome">
+                    </div>
+                    <div class="col-md-3">
+                      <input type="text" class="form-control" name="data" id="data" value="<%=filtros.data%>" placeholder="Data">
+                    </div>
+                    <div class="col-md-3">
+                      <input type="text" class="form-control" name="valor" id="valor" value="<%=filtros.valor%>" placeholder="Valor">
+                    </div>
+                    <div class="col-md-1">
+                      <button type="button" id="buscar" class="btn btn-success pull-right">Buscar</button>
+                    </div>
+                  </div>
+                </form>
+                <div class="row "> 
+                  <!-- <a href="produtos/inserir">Inserir novo produto</a><br>
+                  <a href="/">Voltar</a> -->
+                  <div class="col-md-12">
+                    <table class="table">
+                        <tr class="table-title">
+                            <td>ID</td>
+                            <td>Nome</td>
+                            <td>Data</td>
+                            <td>Valor</td>
+                            <td>Ver</td>
+                        </tr>
+                        <% for(var i=0;i<lista.length;i++){ %>
+                        <tr>
+                            <td><%=lista[i].id%></td>
+                            <td><%=lista[i].nome%></td>
+                            <td><%=lista[i].data.getDate()%>/<%=lista[i].data.getMonth()%>/<%=lista[i].data.getFullYear()%></td>
+                            <td>R$ <%=lista[i].valor.toFixed(2)%></td>
+                            <td><a class="btn btn-primary" href="/vendas/ver/<%=lista[i].id%>">Ver</a></td>
+                        </tr>
+                        <% } %>
+                    </table>
+  
+                  </div>
+                </div>
+    
+              </div>
+            </div>
+          </div>
+
+        </div> <!--Conteiner fluido -->
+      </main>
+
+
+      <!-- asside -->
+      <%include ../layouts/aside.ejs%>
+
+    </div>
+    <%include ../layouts/footer.ejs%>
+  </body>
+  <script>
+    $(document).on('click','#buscar',function(){
+      var data = '';
+      if($('#data').val() != ''){
+        var data_brasil = $('#data').val().split('/');
+        data = data_brasil[2]+'-'+data_brasil[1]+'-'+data_brasil[0];
+      }
+
+      window.location = '/vendas?id='+$('#id').val()+'&nome='+$('#nome').val()+'&data='+data+'&valor='+$('#valor').val();
+    })
+  </script>
+</html>
