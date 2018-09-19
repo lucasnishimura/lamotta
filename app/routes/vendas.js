@@ -31,4 +31,23 @@ module.exports = function(app){
             })
         })
     })
+
+    app.get('/vendas/inserir',function(req,res){
+        var connection = app.infra.dbConnection();
+        var clientesBanco = new app.infra.clientesBanco(connection);
+
+        var dados_filtro = {
+            id:'',
+            nome: '',
+            cliente: '',
+            empresa: ''
+       }
+        
+
+        clientesBanco.lista(dados_filtro,function(erros,resultados){
+            console.log(resultados)
+            res.render('vendas/inserir',{errosValidacao:{},produtoInfo:{},clientes:resultados});
+        })
+
+    })
 }
