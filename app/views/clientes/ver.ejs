@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<!--
+* CoreUI - Free Bootstrap Admin Template
+* @version v2.0.0
+* @link https://coreui.io
+* Copyright (c) 2018 creativeLabs ?ukasz Holeczek
+* Licensed under MIT (https://coreui.io/license)
+-->
+
+<html lang="pt">
+<!-- Header de cima -->
+<%include ../layouts/header.ejs%>
+
+  <body class="app header-fixed sidebar-fixed aside-menu-fixed sidebar-lg-show">
+
+    <%include ../layouts/header-topo.ejs%>
+    
+    <div class="app-body">
+        <%include ../layouts/menu-lateral.ejs%>
+        <!-- side bar -->
+
+      
+      <main class="main">
+        <!-- Breadcrumb-->
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">Home</li>
+          <li class="breadcrumb-item">
+            <a href="#">Admin</a>
+          </li>
+          <li class="breadcrumb-item active">Dashboard</li>
+          <!-- Breadcrumb Menu-->
+          <li class="breadcrumb-menu d-md-down-none">
+            <div class="btn-group" role="group" aria-label="Button group">
+              <a class="btn" href="#">
+                <i class="icon-speech"></i>
+              </a>
+              <a class="btn" href="./">
+                <i class="icon-graph"></i> ùDashboard</a>
+              <a class="btn" href="#">
+                <i class="icon-settings"></i> ùSettings</a>
+            </div>
+          </li>
+        </ol>
+        <div class="container-fluid">
+
+
+
+          <!--  -->
+          <div class="animated fadeIn">
+            <div class="row no-row">
+              <div class="col-md-12">              
+                <div class="row">
+                  <div class="col-md-11 div-titulo">
+                  <h1 class="titulo-pagina">Cliente</h1><p class="titulo-pagina titulo-pagina-desc"> | Ver</p> 
+                  </div>
+                  <div class="col-md-1 pull-right">
+                    <a class="btn" href="javascript:history.back()"><i class="fa fa-2x fa-chevron-left"></i></a>
+                  </div>
+                </div>
+                <hr>
+                <div class="erros">
+                    <% if(errosValidacao){ %>
+                      <ul>
+                        <%for(var i=0; i< errosValidacao.length; i++){%>
+                          <li><%= errosValidacao[i].param%> - <%= errosValidacao[i].msg%></li>
+                        <% } %>
+                      </ul>
+                    <% } %>
+                    
+                  </div>
+                  <form action="/clientes/ver" method="post">
+                    <input type="hidden" name="id" value="<%=clienteInfo.id%>">
+                    <div class="col-md-4">
+                      <label for="">Nome do cliente</label>
+                      <input type="text" name="nome" placeholder="Digite o nome do cliente" class="form-control" value="<%=clienteInfo.nome%>">
+                    </div>
+                    <div class="col-md-4">
+                      <label for="">Nome do parceiro</label>
+                      <select name="cliente" id="cliente" class="form-control">
+                          <%for(var i=0; i < parceiros.length; i++){%>
+                            <%var selected = ''%>
+                            <%if(parceiros[i] == clienteInfo.cliente){%>
+                                <%selected = 'selected'%>
+                            <%}%>
+                            <option value="<%=parceiros[i]%>" <%=selected%> ><%=parceiros[i]%></option>
+                          <%}%>  
+                      </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="">Empresa</label>
+                        <input type="text" name="empresa" id="empresa" placeholder="Digite o nome da empresa" class="form-control" value="<%=clienteInfo.empresa%>">
+                      <br>
+                      <input type="submit" class="btn btn-success" value="Gravar">
+                    </div>
+                  </form>
+
+              </div>
+            </div>
+          </div>
+
+        </div> <!--Conteiner fluido -->
+      </main>
+
+
+      <!-- asside -->
+      <%include ../layouts/aside.ejs%>
+
+    </div>
+    <%include ../layouts/footer.ejs%>
+  </body>
+</html>
