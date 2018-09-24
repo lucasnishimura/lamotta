@@ -86,12 +86,14 @@
                         <th>Id</th>
                         <th>Nome</th>
                         <th>Preço</th>
+                        <th>Ver</th>
                       </tr>
                       <% for(var i=0;i<lista.length;i++){ %>
                       <tr>
                         <td><%=lista[i].id%></td>
                         <td><%=lista[i].nome%></td>
                         <td><%=lista[i].preco%></td>
+                        <td><a href="/produtos/ver/<%=lista[i].id%>" class="btn btn-primary">Ver</a></td>
                       </tr>
                       <% } %>
                     </table>
