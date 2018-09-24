@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<!--
+* CoreUI - Free Bootstrap Admin Template
+* @version v2.0.0
+* @link https://coreui.io
+* Copyright (c) 2018 creativeLabs ?ukasz Holeczek
+* Licensed under MIT (https://coreui.io/license)
+-->
+
+<html lang="pt">
+<!-- Header de cima -->
+<%include ../layouts/header.ejs%>
+
+  <body class="app header-fixed sidebar-fixed aside-menu-fixed sidebar-lg-show">
+
+    <%include ../layouts/header-topo.ejs%>
+    
+    <div class="app-body">
+        <%include ../layouts/menu-lateral.ejs%>
+        <!-- side bar -->
+
+      
+      <main class="main">
+        <!-- Breadcrumb-->
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">Home</li>
+          <li class="breadcrumb-item">
+            <a href="#">Admin</a>
+          </li>
+          <li class="breadcrumb-item active">Dashboard</li>
+          <!-- Breadcrumb Menu-->
+          <li class="breadcrumb-menu d-md-down-none">
+            <div class="btn-group" role="group" aria-label="Button group">
+              <a class="btn" href="#">
+                <i class="icon-speech"></i>
+              </a>
+              <a class="btn" href="./">
+                <i class="icon-graph"></i> ï¿½Dashboard</a>
+              <a class="btn" href="#">
+                <i class="icon-settings"></i> ï¿½Settings</a>
+            </div>
+          </li>
+        </ol>
+        <div class="container-fluid">
+
+
+
+          <!--  -->
+          <div class="animated fadeIn">
+            <div class="row no-row">
+              <div class="col-md-12">              
+                <div class="row">
+                  <div class="col-md-11 div-titulo">
+                  <h1 class="titulo-pagina">Ingredientes</h1><p class="titulo-pagina titulo-pagina-desc"> | Alterar</p> 
+                  </div>
+                  <div class="col-md-1 pull-right">
+                    <a class="btn" href="javascript:history.back()"><i class="fa fa-2x fa-chevron-left"></i></a>
+                  </div>
+                </div>
+                <hr>
+                <div class="erros">
+                    <% if(errosValidacao){ %>
+                      <ul>
+                        <%for(var i=0; i< errosValidacao.length; i++){%>
+                          <li><%= errosValidacao[i].param%> - <%= errosValidacao[i].msg%></li>
+                        <% } %>
+                      </ul>
+                    <% } %>
+                    
+                  </div>
+                  <form action="/ingredientes/ver" method="post">
+                    <input type="hidden" name="id" value="<%=ingredienteInfo.id%>">
+                    <div class="col-md-4">
+                      <label for="">Nome do ingrediente</label>
+                      <input type="text" name="nome" placeholder="Digite o nome do ingrediente" class="form-control" value="<%=ingredienteInfo.nome%>">
+                    </div>
+                    <div class="col-md-4">
+                      <label for="">PreÃ§o do ingrediente</label>
+                      <input type="text" name="preco" id="preco" placeholder="Digite o preÃ§o do ingrediente" class="form-control" value="<%=ingredienteInfo.preco%>">
+                    </div>
+                    <div class="col-md-4">
+                      <label for="">Quantidade</label>
+                      <input type="number" name="quantidade" id="quantidade" placeholder="Digite a quantidade do ingrediente" class="form-control" value="<%=ingredienteInfo.quantidade%>">
+                    </div>
+                    <div class="col-md-4">
+                      <br>
+                      <input type="submit" class="btn btn-success" value="Gravar">
+                    </div>
+                  </form>
+
+              </div>
+            </div>
+          </div>
+
+        </div> <!--Conteiner fluido -->
+      </main>
+
+
+      <!-- asside -->
+      <%include ../layouts/aside.ejs%>
+
+    </div>
+    <%include ../layouts/footer.ejs%>
+  </body>
+</html>

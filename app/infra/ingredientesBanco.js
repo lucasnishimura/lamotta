@@ -36,7 +36,7 @@ IngredientesBanco.prototype.ver =  function(produto,callback){
 }
 
 IngredientesBanco.prototype.altera =  function(produto,callback){
-	this.connection.query('update ingredientes set nome="'+produto.nome+'", preco="'+produto.preco+'", descricao="'+produto.descricao+'" where id = '+produto.id,callback);
+	this.connection.query('update ingredientes set nome="'+produto.nome+'", preco="'+produto.preco+'", quantidade="'+produto.quantidade+'" where id = '+produto.id,callback);
 }	
 
 module.exports = function(){
