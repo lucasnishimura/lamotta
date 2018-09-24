@@ -93,4 +93,10 @@ UPDATE `estudo`.`venda_produto` SET `quantidade`='1' WHERE `id`='8';
 UPDATE `estudo`.`venda_produto` SET `quantidade`='2' WHERE `id`='9';
 UPDATE `estudo`.`venda_produto` SET `quantidade`='1' WHERE `id`='10';
 
+CREATE TABLE `estudo`.`ingredientes` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `nome` VARCHAR(45) NULL,
+  `quantidade` INT NULL,
+  `preco` FLOAT(10,2) NULL,
+  PRIMARY KEY (`id`));
 
