@@ -17,6 +17,7 @@ module.exports = function(app){
 
         produtosBanco.lista(dados_filtro,function(err,results,next){
             if(err){
+                console.log(err)
                 //next executa a próxima função da cadeia de funções
                 console.log('Erro no banco de dados');
                 return next(err);

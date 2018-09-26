@@ -1,25 +1,23 @@
 module.exports = function(app){
-    app.get('/ingredientes',function(req,res){
+    app.get('/estoque',function(req,res){
        
         var connection = app.infra.dbConnection();
-        var ingredientesBanco = new app.infra.ingredientesBanco(connection);
+        var estoqueBanco = new app.infra.estoqueBanco(connection);
 
         var dados_filtro = {
             id: req.query.id != undefined ? decodeURI(req.query.id) : '',
             nome: req.query.nome != undefined ? decodeURI(req.query.nome) : '',
-            preco: req.query.preco != undefined ? decodeURI(req.query.preco) : '',
             quantidade: req.query.quantidade != undefined ? decodeURI(req.query.quantidade) : ''
        }
 
-        ingredientesBanco.lista(dados_filtro,function(err,results,next){
+        estoqueBanco.lista(dados_filtro,function(err,results,next){
             if(err){
-                console.log(err)
                 console.log('Erro no banco de dados');
                 return next(err);
             }
             res.format({
                 html: function(){
-                    res.render("ingredientes/lista",{lista:results,filtros:dados_filtro});   
+                    res.render("estoque/lista",{lista:results,filtros:dados_filtro});   
                 },
                 json: function(){
                     res.json(results);
@@ -29,19 +27,19 @@ module.exports = function(app){
         connection.end();
     })
 
-    app.get('/ingredientes/ver/:id?',function(req,res){
+    app.get('/estoque/ver/:id?',function(req,res){
        
         var connection = app.infra.dbConnection();
-        var ingredientesBanco = new app.infra.ingredientesBanco(connection);
+        var estoqueBanco = new app.infra.estoqueBanco(connection);
 
-        ingredientesBanco.ver(req.params,function(err,results,next){
+        estoqueBanco.ver(req.params,function(err,results,next){
             if(err){
                 console.log('Erro no banco de dados');
                 return next(err);
             }
             res.format({
                 html: function(){
-                    res.render("ingredientes/ver",{errosValidacao:{},ingredienteInfo:results[0]});   
+                    res.render("estoque/ver",{errosValidacao:{},estoqueInfo:results[0]});   
                 },
                 json: function(){
                     res.json(results);
@@ -52,25 +50,24 @@ module.exports = function(app){
     })
            
 
-    app.get('/ingredientes/inserir',function(req,res){
-        res.render("ingredientes/inserir",{errosValidacao:{},ingredienteInfo:{}});   
+    app.get('/estoque/inserir',function(req,res){
+        res.render("estoque/inserir",{errosValidacao:{},estoqueInfo:{}});   
     })
 
-    app.post('/ingredientes',function(req,res){
+    app.post('/estoque',function(req,res){
         var connection = app.infra.dbConnection();
-        var ingredientesBanco = new app.infra.ingredientesBanco(connection);
+        var estoqueBanco = new app.infra.estoqueBanco(connection);
         
         //dados do post
         var dados_form = req.body;
         req.assert('nome','Nome é obrigatório').notEmpty();
-        req.assert('preco','Preco vazio').notEmpty();
-        req.assert('preco','Formato inválido').isFloat();
+        req.assert('quantidade','Quantidade é obrigatório').notEmpty();
         
         var erros = req.validationErrors();
         if(erros){
             res.format({
                 html: function(){
-                    res.status(400).render('ingredientes/inserir',{errosValidacao : erros, produtoInfo : dados_form});
+                    res.status(400).render('estoque/inserir',{errosValidacao : erros, estoqueInfo : dados_form});
                 },
                 json: function(){
                     res.status(400).json(erros);
@@ -79,25 +76,25 @@ module.exports = function(app){
             return false;
         }
 
-        ingredientesBanco.salva(dados_form,function(err,results){
-            res.redirect('/ingredientes');
+        estoqueBanco.salva(dados_form,function(err,results){
+            res.redirect('/estoque');
         })        
     })
 
-    app.post('/ingredientes/ver',function(req,res){
+    app.post('/estoque/ver',function(req,res){
         var connection = app.infra.dbConnection();
-        var ingredientesBanco = new app.infra.ingredientesBanco(connection);
+        var estoqueBanco = new app.infra.estoqueBanco(connection);
         
         //dados do post
         var dados_form = req.body;
         req.assert('nome','Nome é obrigatório').notEmpty();
-        req.assert('preco','Preco vazio').notEmpty();
-        req.assert('preco','Formato inválido').isFloat();
+        req.assert('quantidade','Quantidade é obrigatório').notEmpty();
+        
         var erros = req.validationErrors();
         if(erros){
             res.format({
                 html: function(){
-                    res.status(400).render('/ingredientes/ver',{errosValidacao : erros, ingredientesInfo : dados_form});
+                    res.status(400).render('/estoque/ver',{errosValidacao : erros, estoqueInfo : dados_form});
                 },
                 json: function(){
                     res.status(400).json(erros);
@@ -106,8 +103,8 @@ module.exports = function(app){
             return false;
         }
 
-        ingredientesBanco.altera(dados_form,function(err,results){
-            res.redirect('/ingredientes');
+        estoqueBanco.altera(dados_form,function(err,results){
+            res.redirect('/estoque');
         })        
     })
 }

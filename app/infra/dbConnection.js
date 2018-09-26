@@ -10,8 +10,8 @@ function createDBConnection(){
             user: 'root',
             // password: '979899', //usa em casa
             password: '', //usa no trampo
-            // database: 'lamotta_com_br' //usa em casa
-            database: 'estudo' //usa no trampo
+            database: 'lamotta_com_br' //usa em casa
+            // database: 'estudo' //usa no trampo
         });
     }
 
@@ -22,8 +22,8 @@ function createDBConnection(){
             user: 'root',
             // password: '979899', //usa em casa
             password: '', //usa no trampo
-            // database: 'lamotta_com_br' //usa em casa
-            database: 'estudo_teste' //usa no trampo
+            database: 'lamotta_com_br' //usa em casa
+            // database: 'estudo_teste' //usa para teste
         });
     }
 

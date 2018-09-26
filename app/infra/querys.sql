@@ -100,3 +100,10 @@ CREATE TABLE `estudo`.`ingredientes` (
   `preco` FLOAT(10,2) NULL,
   PRIMARY KEY (`id`));
 
+  CREATE TABLE `lamotta_com_br`.`estoque` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `nome` VARCHAR(45) NULL,
+  `quantidade` INT NULL,
+  PRIMARY KEY (`id`));
+
+
