@@ -107,4 +107,12 @@ module.exports = function(app){
             res.redirect('/estoque');
         })        
     })
+
+    app.post('/estoque/alterarquantidade',function(req,res){
+        var connection = app.infra.dbConnection();
+        var estoqueBanco = new app.infra.estoqueBanco(connection);
+        
+        estoqueBanco.alteraQuantidade(req.query)
+        return;   
+    })
 }

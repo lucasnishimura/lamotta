@@ -92,7 +92,7 @@
                       <tr>
                         <td><%=lista[i].id%></td>
                         <td><%=lista[i].nome%></td>
-                        <td><%=lista[i].quantidade%></td>
+                        <td class="quantidade-estoque"><input type="number" class="form-control quantidade" data-id="<%=lista[i].id%>" value="<%=lista[i].quantidade%>"></td>
                         <td><a href="/estoque/ver/<%=lista[i].id%>" class="btn btn-primary">Ver</a></td>
                       </tr>
                       <% } %>
@@ -126,6 +126,17 @@
     $(document).keypress(function(e) {
       if(e.which == 13) window.location = link;
     });
+
+    $(document).on('change','.quantidade',function(){
+      $.ajax({
+        url: '/estoque/alterarquantidade?id='+$(this).data('id')+'&quantidade='+$(this).val(),
+        type: 'POST',
+        dataType: 'JSON',
+        success: function(data){
+          console.log(data)
+        }
+      })
+    })
 
   </script>
 </html>

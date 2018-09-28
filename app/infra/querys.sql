@@ -106,4 +106,12 @@ CREATE TABLE `estudo`.`ingredientes` (
   `quantidade` INT NULL,
   PRIMARY KEY (`id`));
 
+  CREATE TABLE `lamotta_com_br`.`produto_estoque` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `produto_id` INT NULL,
+  `estoque_id` INT NULL,
+  `quantidade` INT NULL,
+  PRIMARY KEY (`id`));
+
+
 

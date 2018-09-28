@@ -34,6 +34,10 @@ EstoqueBanco.prototype.altera =  function(produto,callback){
 	this.connection.query('update estoque set nome="'+produto.nome+'", quantidade="'+produto.quantidade+'" where id = '+produto.id,callback);
 }	
 
+EstoqueBanco.prototype.alteraQuantidade =  function(produto,callback){
+	this.connection.query('update estoque set quantidade="'+produto.quantidade+'" where id = '+produto.id,callback);
+}	
+
 module.exports = function(){
 	return EstoqueBanco;
 }

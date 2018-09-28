@@ -6,3 +6,7 @@ h1,h2,h3,p{
     background-color: #a9a9a9 !important;
     color: white !important;
 }
+
+.quantidade-estoque{
+    width: 11% !important;
+}

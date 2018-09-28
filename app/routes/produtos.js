@@ -62,7 +62,21 @@ module.exports = function(app){
         
 
     app.get('/produtos/inserir',function(req,res){
-        res.render("produtos/inserir",{errosValidacao:{},produtoInfo:{}});   
+        var connection = app.infra.dbConnection();
+        var ingredientesBanco = new app.infra.ingredientesBanco(connection);
+
+        
+        var dados_filtro = {
+            id: '',
+            nome: '',
+            preco: '',
+            quantidade: ''
+       }
+
+        ingredientesBanco.lista(dados_filtro,function(err,results,next){
+            res.render("produtos/inserir",{errosValidacao:{},produtoInfo:results});   
+        })
+
     })
 
     app.post('/produtos',function(req,res){
