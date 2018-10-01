@@ -10,3 +10,8 @@ h1,h2,h3,p{
 .quantidade-estoque{
     width: 11% !important;
 }
+
+.modal-inserir{
+    width: 876px !important;
+    margin-left: -144px !important;
+}

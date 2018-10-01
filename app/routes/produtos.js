@@ -3,10 +3,12 @@
 
 module.exports = function(app){
     //Rotas
+    
     app.get('/produtos',function(req,res){
-       
+        
         var connection = app.infra.dbConnection();
         var produtosBanco = new app.infra.produtosBanco(connection);
+        var estoqueBanco = new app.infra.estoqueBanco(connection);
 
        //dados enviados via get
         var dados_filtro = {
@@ -14,6 +16,11 @@ module.exports = function(app){
             nome: req.query.nome != undefined ? decodeURI(req.query.nome) : '',
             preco: req.query.preco != undefined ? decodeURI(req.query.preco) : ''
        }
+
+       estoqueResults = {}
+       estoqueBanco.todos(function(err,results){
+           estoqueResults = results;
+       })
 
         produtosBanco.lista(dados_filtro,function(err,results,next){
             if(err){
@@ -26,7 +33,7 @@ module.exports = function(app){
             res.format({
                 html: function(){
                     //precisamos passar no segundo parametro um array com os resultados
-                    res.render("produtos/lista",{lista:results,filtros:dados_filtro});   
+                    res.render("produtos/lista",{lista:results,filtros:dados_filtro,errosValidacao:{},produtoInfo:estoqueResults});   
                 },
                 json: function(){
                     res.json(results);
@@ -60,31 +67,17 @@ module.exports = function(app){
     
     // app.get('/produtos',listaProdutos) //posso criar uma var�vel e colocar essa fun��o dentro dessa vari�vel, caso eu for usar em mais de um lugar
         
-
-    app.get('/produtos/inserir',function(req,res){
-        var connection = app.infra.dbConnection();
-        var ingredientesBanco = new app.infra.ingredientesBanco(connection);
-
-        
-        var dados_filtro = {
-            id: '',
-            nome: '',
-            preco: '',
-            quantidade: ''
-       }
-
-        ingredientesBanco.lista(dados_filtro,function(err,results,next){
-            res.render("produtos/inserir",{errosValidacao:{},produtoInfo:results});   
-        })
-
-    })
-
     app.post('/produtos',function(req,res){
         var connection = app.infra.dbConnection();
         var produtosBanco = new app.infra.produtosBanco(connection);
         
         //dados do post
-        var dados_form = req.body;
+        var dados_form = {
+            'nome' : req.body.nome,
+            'preco' : req.body.preco,
+            'descricao' : req.body.descricao
+        };
+
         req.assert('nome','Nome é obrigatório').notEmpty();
         req.assert('preco','Preco vazio').notEmpty();
         req.assert('preco','Formato inválido').isFloat();
@@ -101,10 +94,22 @@ module.exports = function(app){
             })
             return false;
         }
-
+        var ingredientes = req.body.ingredientes;
+        
         produtosBanco.salva(dados_form,function(err,results){
-            res.redirect('/produtos');
+            var dados_insert = {
+                'produto_id' : results.insertId,
+                'ingredientes' : req.body.ingredientes,
+                'total' : ingredientes.length
+            }
+            
+            produtosBanco.estoqueProduto(dados_insert,function(err,resultsestoque){
+                if(err){
+                    console.log('Erro ao adicionar elementos')
+                }
+            })
         })        
+        res.redirect(301,'/produtos');
     })
 
     app.post('/produtos/ver',function(req,res){

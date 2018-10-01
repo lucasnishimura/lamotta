@@ -30,6 +30,10 @@ EstoqueBanco.prototype.ver =  function(produto,callback){
 	this.connection.query('select * from estoque where id="'+produto.id+'"',callback);
 }
 
+EstoqueBanco.prototype.todos =  function(callback){
+	this.connection.query('select * from estoque',callback);
+}
+
 EstoqueBanco.prototype.altera =  function(produto,callback){
 	this.connection.query('update estoque set nome="'+produto.nome+'", quantidade="'+produto.quantidade+'" where id = '+produto.id,callback);
 }	

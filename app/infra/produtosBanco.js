@@ -26,6 +26,13 @@ ProdutosBanco.prototype.salva =  function(produto,callback){
 	this.connection.query('insert into produtos set ?',produto,callback);
 }	
 
+ProdutosBanco.prototype.estoqueProduto =  function(produto,callback){
+	for (index = 0; index < produto.total; index++) {
+		this.connection.query('insert into produto_estoque (produto_id,estoque_id,quantidade) VALUES ('+produto.produto_id+','+produto.ingredientes[index].ingrediente+','+produto.ingredientes[index].quantidade+')',callback);
+	}
+	
+}	
+
 ProdutosBanco.prototype.ver =  function(produto,callback){
 	this.connection.query('select * from produtos where id="'+produto.id+'"',callback);
 }
