@@ -47,6 +47,17 @@ module.exports = function(app){
        
         var connection = app.infra.dbConnection();
         var produtosBanco = new app.infra.produtosBanco(connection);
+        var estoqueBanco = new app.infra.estoqueBanco(connection);
+
+        estoqueResults = {}
+        estoqueBanco.todos(function(err,results){
+            estoqueResults = results;
+        })
+
+        ingredientes = {}
+        produtosBanco.verEstoqueProduto(req.params,function(err,resultsestoque){
+            ingredientes = resultsestoque;
+        })
 
         produtosBanco.ver(req.params,function(err,results,next){
             if(err){
@@ -55,7 +66,12 @@ module.exports = function(app){
             }
             res.format({
                 html: function(){
-                    res.render("produtos/ver",{errosValidacao:{},produtoInfo:results[0]});   
+                    res.render("produtos/ver",{
+                        errosValidacao:{},
+                        produtoInfo:results[0],
+                        estoqueResults:estoqueResults,
+                        ingredientesInfo:ingredientes
+                    });   
                 },
                 json: function(){
                     res.json(results);
@@ -117,7 +133,13 @@ module.exports = function(app){
         var produtosBanco = new app.infra.produtosBanco(connection);
         
         //dados do post
-        var dados_form = req.body;
+        var dados_form = {
+            'id' : req.body.id,
+            'nome' : req.body.nome,
+            'preco' : req.body.preco,
+            'descricao' : req.body.descricao
+        };
+        
         req.assert('nome','Nome é obrigatório').notEmpty();
         req.assert('preco','Preco vazio').notEmpty();
         req.assert('preco','Formato inválido').isFloat();
@@ -133,9 +155,31 @@ module.exports = function(app){
             })
             return false;
         }
-
+        
         produtosBanco.altera(dados_form,function(err,results){
-            res.redirect('/produtos');
+            if(err){
+                console.log('Erro ao adicionar produtos',err)
+            }
         })        
+        
+        produtosBanco.apagaProduto(req.body.id,function(err){
+            if(err){
+                console.log('erro ao apagar produtos',err)
+            }
+        })
+
+        var ingredientes = req.body.ingredientes;
+        var dados_insert = {
+            'produto_id' : req.body.id,
+            'ingredientes' : req.body.ingredientes,
+            'total' : ingredientes.length
+        }
+        produtosBanco.estoqueProduto(dados_insert,function(err,resultsestoque){
+            if(err){
+                console.log('Erro ao adicionar elementos')
+            }
+        })
+        res.redirect('/produtos');
     })
+
 }

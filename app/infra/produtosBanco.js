@@ -31,10 +31,18 @@ ProdutosBanco.prototype.estoqueProduto =  function(produto,callback){
 		this.connection.query('insert into produto_estoque (produto_id,estoque_id,quantidade) VALUES ('+produto.produto_id+','+produto.ingredientes[index].ingrediente+','+produto.ingredientes[index].quantidade+')',callback);
 	}
 	
-}	
+}
+
+ProdutosBanco.prototype.apagaProduto = function(produto,callback){
+	this.connection.query('delete from produto_estoque where produto_id = '+produto,callback)
+}
 
 ProdutosBanco.prototype.ver =  function(produto,callback){
 	this.connection.query('select * from produtos where id="'+produto.id+'"',callback);
+}
+
+ProdutosBanco.prototype.verEstoqueProduto =  function(produto,callback){
+	this.connection.query('select nome,a.quantidade,e.id from produto_estoque as a INNER JOIN estoque as e ON a.estoque_id = e.id where produto_id = "'+produto.id+'"',callback);
 }
 
 ProdutosBanco.prototype.altera =  function(produto,callback){

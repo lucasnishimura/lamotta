@@ -70,20 +70,61 @@
                   </div>
                   <form action="/produtos/ver" method="post">
                     <input type="hidden" name="id" value="<%=produtoInfo.id%>">
-                    <div class="col-md-4">
-                      <label for="">Nome do produto</label>
-                      <input type="text" name="nome" placeholder="Digite o nome do produto" class="form-control" value="<%=produtoInfo.nome%>">
-                    </div>
-                    <div class="col-md-4">
-                      <label for="">Preço do produto</label>
-                      <input type="text" name="preco" id="preco" placeholder="Digite o preço do produto" class="form-control" value="<%=produtoInfo.preco%>">
-                    </div>
-                    <div class="col-md-4">
-                      <label for="">Descrição do produto</label>
-                      <textarea name="descricao" cols="30" class="form-control" rows="10"><%=produtoInfo.descricao%></textarea>
-                      <br>
-                      <input type="submit" class="btn btn-success" value="Gravar">
-                    </div>
+                      <div class="row">
+                        <div class="col-md-3">
+                          <h4>Dados do produto</h4>
+                        </div>
+                      </div><br>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <label for="">Nome do produto:</label>
+                          <input type="text" name="nome" placeholder="Digite o nome do produto" class="form-control" value="<%=produtoInfo.nome%>">
+                        </div>
+                        <div class="col-md-6">
+                          <label for="">Preço do produto:</label>
+                          <input type="text" name="preco" id="preco" placeholder="Digite o preço do produto" class="form-control" value="<%=produtoInfo.preco%>">
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <label for="">Descrição do produto:</label>
+                          <textarea name="descricao" cols="90" class="form-control" rows="5"><%=produtoInfo.descricao%></textarea>
+                          <br>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-2">
+                          <h4>Ingredientes:</h4>
+                        </div>
+                        <div class="col-md-2">
+                            <button type="button" class="btn btn-primary add-ingrediente"><i class="fa fa-plus"></i></button>
+                        </div>
+                      </div>
+                      <div class="conteudo-ingredientes"><br>
+                          <%for(var i = 0; i < ingredientesInfo.length; i++){%>
+                            <div class="row">
+                                <div class="col-md-5">
+                                  <select name="ingredientes[<%=i%>][ingrediente]" class="form-control">
+                                    <%for (index = 0; index < estoqueResults.length; index++) {
+                                      var selected = ''; 
+                                      if(estoqueResults[index].id == ingredientesInfo[i].id){
+                                        selected = 'selected';
+                                      }
+                                      %>
+                                      <option value="<%=estoqueResults[index].id%>" <%=selected%> ><%=estoqueResults[index].nome%></option>
+                                    <%}%>
+                                  </select>
+                                </div>
+                                <div class="col-md-5">
+                                  <input type="number" class="form-control" placeholder="Digite uma quantidade" value="<%=ingredientesInfo[i].quantidade%>" name="ingredientes[<%=i%>][quantidade]">
+                                </div>
+                                <div class="col-md-1">
+                                    <button type="button" class="btn btn-danger remove-ingrediente"><i class="fa fa-times"></i></button>
+                                  </div>
+                              </div><br>
+                            <%}%>
+                          </div>
+                          <button type="submit" class="btn btn-success">Salvar</button>
                   </form>
 
               </div>
@@ -100,4 +141,32 @@
     </div>
     <%include ../layouts/footer.ejs%>
   </body>
+  <script>
+    i = <%=ingredientesInfo.length%>;
+      $(document).on('click','.add-ingrediente',function(){
+      var html = `<div class="row form-group">
+                        <div class="col-md-5">
+                          <select name="ingredientes[`+i+`][ingrediente]" class="form-control">
+                            <option value="">Escolha um ingrediente</option>
+                            <%for (index = 0; index < estoqueResults.length; index++) {%>
+                                    <option value="<%=estoqueResults[index].id%>"><%=estoqueResults[index].nome%></option>
+                            <%}%>
+                          </select>
+                        </div>
+                        <div class="col-md-5">
+                          <input type="number" class="form-control" placeholder="Digite uma quantidade" name="ingredientes[`+i+`][quantidade]">
+                        </div>
+                        <div class="col-md-1">
+                          <button type="button" class="btn btn-danger remove-ingrediente"><i class="fa fa-times"></i></button>
+                        </div>
+                      </div>`;
+  
+     $('.conteudo-ingredientes').append(html)
+     i++;
+    })
+
+    $(document).on('click','.remove-ingrediente',function(){
+      $(this).parent().parent().remove()
+    })
+  </script>
 </html>

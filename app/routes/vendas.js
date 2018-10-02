@@ -45,7 +45,6 @@ module.exports = function(app){
         
 
         clientesBanco.lista(dados_filtro,function(erros,resultados){
-            console.log(resultados)
             res.render('vendas/inserir',{errosValidacao:{},produtoInfo:{},clientes:resultados});
         })
 
