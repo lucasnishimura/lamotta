@@ -41,6 +41,10 @@ ProdutosBanco.prototype.ver =  function(produto,callback){
 	this.connection.query('select * from produtos where id="'+produto.id+'"',callback);
 }
 
+ProdutosBanco.prototype.todos =  function(callback){
+	this.connection.query('select * from produtos',callback);
+}
+
 ProdutosBanco.prototype.verEstoqueProduto =  function(produto,callback){
 	this.connection.query('select nome,a.quantidade,e.id from produto_estoque as a INNER JOIN estoque as e ON a.estoque_id = e.id where produto_id = "'+produto.id+'"',callback);
 }

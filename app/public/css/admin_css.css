@@ -15,3 +15,12 @@ h1,h2,h3,p{
     width: 876px !important;
     margin-left: -144px !important;
 }
+
+.campo-preco-total{
+    height: 62px;
+    font-size: 20pt;
+}
+
+.preco-total{
+    margin: -8px 0 1rem !important;
+}

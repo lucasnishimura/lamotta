@@ -29,7 +29,14 @@ VendasBanco.prototype.lista =  function(filtros,callback){
 }	
 
 VendasBanco.prototype.salva =  function(produto,callback){
-	this.connection.query('insert into clientes set ?',produto,callback);
+	this.connection.query('insert into vendas set ?',produto,callback);
+}	
+
+VendasBanco.prototype.salvaVenda =  function(produto,callback){
+	for (var index = 0; index < produto.total; index++) {
+		// const element = array[index];
+		this.connection.query('insert into venda_produto (venda_id,produto_id,quantidade) VALUES ('+produto.venda_id+','+produto.vendas[index].produto+','+produto.vendas[index].quantidade+')',callback);
+	}
 }	
 
 VendasBanco.prototype.ver =  function(produto,callback){
