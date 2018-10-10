@@ -40,7 +40,11 @@ VendasBanco.prototype.salvaVenda =  function(produto,callback){
 }	
 
 VendasBanco.prototype.ver =  function(produto,callback){
-	this.connection.query('select * from clientes where id = '+produto.id,callback);
+	this.connection.query('select a.*,c.nome from vendas as a inner join clientes as c ON a.cliente_id = c.id where a.id = '+produto.id,callback);
+}	
+
+VendasBanco.prototype.verVendaProduto =  function(produto,callback){
+	this.connection.query('select * from venda_produto where venda_id = '+produto.id,callback);
 }	
 
 VendasBanco.prototype.altera =  function(produto,callback){

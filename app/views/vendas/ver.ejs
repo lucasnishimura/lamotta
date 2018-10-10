@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<!--
+* CoreUI - Free Bootstrap Admin Template
+* @version v2.0.0
+* @link https://coreui.io
+* Copyright (c) 2018 creativeLabs ?ukasz Holeczek
+* Licensed under MIT (https://coreui.io/license)
+-->
+
+<html lang="pt">
+<!-- Header de cima -->
+<%include ../layouts/header.ejs%>
+
+  <body class="app header-fixed sidebar-fixed aside-menu-fixed sidebar-lg-show">
+
+    <%include ../layouts/header-topo.ejs%>
+    
+    <div class="app-body">
+        <%include ../layouts/menu-lateral.ejs%>
+        <!-- side bar -->
+
+      
+      <main class="main">
+        <!-- Breadcrumb-->
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">Home</li>
+          <li class="breadcrumb-item">
+            <a href="#">Admin</a>
+          </li>
+          <li class="breadcrumb-item active">Dashboard</li>
+          <!-- Breadcrumb Menu-->
+          <li class="breadcrumb-menu d-md-down-none">
+            <div class="btn-group" role="group" aria-label="Button group">
+              <a class="btn" href="#">
+                <i class="icon-speech"></i>
+              </a>
+              <a class="btn" href="./">
+                <i class="icon-graph"></i> �Dashboard</a>
+              <a class="btn" href="#">
+                <i class="icon-settings"></i> �Settings</a>
+            </div>
+          </li>
+        </ol>
+        <div class="container-fluid">
+
+
+
+          <!--  -->
+          <div class="animated fadeIn">
+            <div class="row no-row">
+              <div class="col-md-12">              
+                <div class="row">
+                  <div class="col-md-11 div-titulo">
+                  <h1 class="titulo-pagina">Vendas</h1><p class="titulo-pagina titulo-pagina-desc"> | Ver</p> 
+                  </div>
+                  <div class="col-md-1 pull-right">
+                    <a class="btn" href="javascript:history.back()"><i class="fa fa-2x fa-chevron-left"></i></a>
+                  </div>
+                </div>
+                <hr>
+                <div class="erros">
+                    <% if(errosValidacao){ %>
+                      <ul>
+                        <%for(var i=0; i< errosValidacao.length; i++){%>
+                          <li><%= errosValidacao[i].param%> - <%= errosValidacao[i].msg%></li>
+                        <% } %>
+                      </ul>
+                    <% } %>
+                    
+                  </div>
+                  <form class="form-inserir" action="/vendas" method="post">
+                    <!-- <div class="row">
+                      <div class="col-md-3">
+                        <h4>Dados do produto</h4>
+                      </div>
+                    </div><br> -->
+                    <div class="row form-group">
+                      <div class="col-md-6">
+                        <label for="">Nome do cliente:</label>
+                        <select name="cliente_id" class="form-control">
+                          <option value="">Escolha um cliente</option>
+                          <%for (index = 0; index < clientes.length; index++) {%>
+                            <option value="<%=clientes[index].id%>"><%=clientes[index].nome%></option>
+                          <%}%>
+                        </select>
+                      </div>
+                      <div class="col-md-6">
+                        <label for="">Data da compra:</label>
+                        <input type="text" name="data" id="data" placeholder="Digite data da compra" class="form-control" value="">
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-2">
+                        <h4>Produtos:</h4>
+                      </div>
+                      <div class="col-md-2">
+                          <button type="button" class="btn btn-primary add-ingrediente"><i class="fa fa-plus"></i></button>
+                      </div>
+                    </div>
+                    <div class="conteudo-ingredientes">
+                        <div class="row">
+                            <div class="col-md-5">
+                              <label for="">Nome do produto:</label>
+                              <select name="vendas[0][produto]" class="form-control produtos" data-id="0">
+                                <option value="0">Escolha um produto</option>
+                                <%for (index = 0; index < produtos.length; index++) {%>
+                                  <option value="<%=produtos[index].id%>" data-preco="<%=produtos[index].preco%>"><%=produtos[index].nome%> - R$ <%=produtos[index].preco%></option>
+                                <%}%>
+                              </select>
+                            </div>
+                            <div class="col-md-3">
+                              <label for="">Quantidade:</label>
+                              <input type="number" class="form-control quantidade quantidade_0" data-id="0" placeholder="Digite uma quantidade" name="vendas[0][quantidade]">
+                            </div>
+                            <div class="col-md-2">
+                              <label for="">R$</label><br>
+                              <span class="produtoPreco_0">-</span>
+                            </div>
+                          </div><br>
+                          
+                        </div>
+                            <div class="row">
+                              <div class="col-sm-6 col-md-12">
+                                <div class="card text-white bg-success text-center campo-preco-total">
+                                  <div class="card-body">
+                                    <blockquote class="card-bodyquote preco-total">
+                                      Total: R$ <p class="valor-total">0.00</p>
+                                    </blockquote>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <input type="hidden" class="total-form" name="valor" value="">
+                  </form>
+
+              </div>
+            </div>
+          </div>
+
+        </div> <!--Conteiner fluido -->
+      </main>
+
+
+      <!-- asside -->
+      <%include ../layouts/aside.ejs%>
+
+    </div>
+    <%include ../layouts/footer.ejs%>
+  </body>
+</html>
