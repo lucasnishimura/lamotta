@@ -129,7 +129,7 @@
                                 <input type="number" class="form-control quantidade quantidade_<%=index%>" value="<%=produtos[index].quantidade%>" data-id="<%=index%>" placeholder="Digite uma quantidade" name="vendas[<%=index%>][quantidade]">
                               </div>
                               <div class="col-md-2">
-                                <span class="produtoPreco_<%=index%>"><%=produtos[index].preco%> x <span class="quantidadeTotal_<%=index%>"><%=produtos[index].quantidade%></span></span><input type="hidden" class="subtotal subtotal_<%=index%>" data-preco="<%=produtos[index].preco%>" value="<%=produtos[index].preco%>">
+                                <span class="produtoPreco_<%=index%>"><%=produtos[index].preco%> x <span class="quantidadeTotal_<%=index%>"><%=produtos[index].quantidade%></span></span><input type="hidden" class="subtotal subtotal_<%=index%>" data-preco="<%=produtos[index].preco * produtos[index].quantidade%>" value="<%=produtos[index].preco%>">
                               </div>
                               <div class="col-md-1">
                                   <button type="button" class="btn btn-danger remove-ingrediente"><i class="fa fa-times"></i></button>
@@ -201,17 +201,22 @@
       var id = $(this).data('id')
       var qtd = $(this).val()
       var subtotal = $('.subtotal_'+id).data('preco')
-console.log(id,qtd,subtotal)
+
       $('.quantidadeTotal_'+id).text(qtd)
       $('.subtotal_'+id).val(qtd * subtotal)
-      
+
+      recalcularTotal();
+    })
+
+    function recalcularTotal(){
       var soma = 0;
       $('.subtotal').each(function(i,e){
+        console.log($(e).val())
         soma += parseFloat($(e).val())
       })
+      
       $('.valor-total').text(soma.toFixed(2))
       $('.total-form').val(soma.toFixed(2))
-
-    })
+    }
   </script>
 </html>
