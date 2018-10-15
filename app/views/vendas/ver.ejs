@@ -80,13 +80,16 @@
                         <select name="cliente_id" class="form-control">
                           <option value="">Escolha um cliente</option>
                           <%for (index = 0; index < clientes.length; index++) {%>
-                            <option value="<%=clientes[index].id%>"><%=clientes[index].nome%></option>
+                            <%var selected = '';
+                              var selected = clientes[index].id == venda.cliente_id ? "selected" : "";
+                            %>
+                            <option value="<%=clientes[index].id%>" <%=selected%>><%=clientes[index].nome%></option>
                           <%}%>
                         </select>
                       </div>
                       <div class="col-md-6">
                         <label for="">Data da compra:</label>
-                        <input type="text" name="data" id="data" placeholder="Digite data da compra" class="form-control" value="">
+                        <input type="text" name="data" id="data" placeholder="Digite data da compra" class="form-control" value="<%=venda.data%>">
                       </div>
                     </div>
                     <div class="row">
@@ -98,25 +101,39 @@
                       </div>
                     </div>
                     <div class="conteudo-ingredientes">
+                      <div class="row">
+                        <div class="col-md-5">
+                          <label for="">Nome do produto:</label>
+                        </div>
+                        <div class="col-md-3">
+                          <label for="">Quantidade:</label>
+                        </div>
+                        <div class="col-md-2">
+                          <label for="">R$</label><br>
+                        </div>
+                      </div>
+                      <%for (index = 0; index < venda.total; index++) {%>
                         <div class="row">
                             <div class="col-md-5">
-                              <label for="">Nome do produto:</label>
-                              <select name="vendas[0][produto]" class="form-control produtos" data-id="0">
+                              <select name="vendas[<%=index%>][produto]" class="form-control produtos" data-id="<%=index%>">
                                 <option value="0">Escolha um produto</option>
-                                <%for (index = 0; index < produtos.length; index++) {%>
-                                  <option value="<%=produtos[index].id%>" data-preco="<%=produtos[index].preco%>"><%=produtos[index].nome%> - R$ <%=produtos[index].preco%></option>
-                                <%}%>
-                              </select>
-                            </div>
-                            <div class="col-md-3">
-                              <label for="">Quantidade:</label>
-                              <input type="number" class="form-control quantidade quantidade_0" data-id="0" placeholder="Digite uma quantidade" name="vendas[0][quantidade]">
-                            </div>
-                            <div class="col-md-2">
-                              <label for="">R$</label><br>
-                              <span class="produtoPreco_0">-</span>
-                            </div>
-                          </div><br>
+                                  <%for(j = 0; j < todosProdutos.length; j++){
+                                      var selectedProduto = '';
+                                      selectedProduto = todosProdutos[j].id == produtos[index].produto_id ? "selected" : "";
+                                  %>
+                                    <option <%=selectedProduto%> value="<%=todosProdutos[j].id%>" data-preco="<%=todosProdutos[j].preco%>"><%=todosProdutos[j].nome%> - R$ <%=todosProdutos[j].preco%></option>
+                                  <%}%>
+                                </select>
+                              </div>
+                              <div class="col-md-3">
+                                <input type="number" class="form-control quantidade quantidade_<%=index%>" value="<%=produtos[index].quantidade%>" data-id="<%=index%>" placeholder="Digite uma quantidade" name="vendas[<%=index%>][quantidade]">
+                              </div>
+                              <div class="col-md-2">
+                                  <%var subtotal = produtos[index].preco * produtos[index].quantidade%>
+                                <span class="produtoPreco_<%=index%>"><%=subtotal.toFixed(2)%></span>
+                              </div>
+                            </div><br>
+                        <%}%>
                           
                         </div>
                             <div class="row">
@@ -124,7 +141,7 @@
                                 <div class="card text-white bg-success text-center campo-preco-total">
                                   <div class="card-body">
                                     <blockquote class="card-bodyquote preco-total">
-                                      Total: R$ <p class="valor-total">0.00</p>
+                                      Total: R$ <p class="valor-total"><%=venda.valor.toFixed(2)%></p>
                                     </blockquote>
                                   </div>
                                 </div>

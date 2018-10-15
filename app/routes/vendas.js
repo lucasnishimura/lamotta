@@ -84,25 +84,36 @@ module.exports = function(app){
     app.get('/vendas/ver/:id?',function(req,res){
         var connection = app.infra.dbConnection();
         var vendasBanco = new app.infra.vendasBanco(connection);
+        var clientesBanco = new app.infra.clientesBanco(connection);
+        var produtosBanco = new app.infra.produtosBanco(connection);
+
+        var clientes = {}
+        clientesBanco.todos(function(err,resultados){
+            clientes = resultados;
+        })
+
+        var todosProdutos = {}
+        produtosBanco.todos(function(err,resultados){
+            todosProdutos = resultados;
+        })
 
         let vendasInfo = []
         vendasBanco.ver(req.params,function(erros,results){
-            //console.log(results[0]);
             vendasInfo = results[0];
         })
         
-
         var vendaProdutoInfo = {}
         vendasBanco.verVendaProduto(req.params,function(erros,results){
             vendaProdutoInfo = results;
             vendasInfo.total = results.length;
-            
             res.format({
                 html: function(){
                     res.render("vendas/ver",{
                         errosValidacao:{},
-                        clientes:{},
-                        produtos:vendasInfo,
+                        clientes:clientes,
+                        venda:vendasInfo,
+                        produtos: vendaProdutoInfo,
+                        todosProdutos: todosProdutos
                     });   
                 },
                 json: function(){
