@@ -115,7 +115,7 @@
                     <%for (index = 0; index < venda.total; index++) {%>
                         <div class="row">
                             <div class="col-md-5">
-                              <select name="vendas[<%=index%>][produto]" class="form-control produtos" data-id="<%=index%>">
+                              <select name="vendas[<%=index%>][produto]" class="form-control produtos produtos_<%=index%>" data-id="<%=index%>">
                                 <option value="0">Escolha um produto</option>
                                   <%for(j = 0; j < todosProdutos.length; j++){
                                       var selectedProduto = '';
@@ -193,14 +193,25 @@
       i++;
     })
 
+    $(document).on('change','.produtos',function(){
+      var id = $(this).data('id')
+      var preco = $(this).find(':selected').data('preco')
+      var qtd = $('.quantidade_'+id).val()
+
+      $('.produtoPreco_'+id).html(preco+' x <span class="quantidadeTotal_'+id+'">'+qtd+'</span>')
+      $('.subtotal_'+id).val(qtd * preco)
+      recalcularTotal()
+    })
+
     $(document).on('click','.remove-ingrediente',function(){
       $(this).parent().parent().remove()
     })
 
-    $(document).on('change','.quantidade',function(){
+    $(document).on('blur','.quantidade',function(){
       var id = $(this).data('id')
       var qtd = $(this).val()
-      var subtotal = $('.subtotal_'+id).data('preco')
+      var subtotal = $('.produtos_'+id).find(':selected').data('preco')
+      // var subtotal = $('.subtotal_'+id).data('preco')
 
       $('.quantidadeTotal_'+id).text(qtd)
       $('.subtotal_'+id).val(qtd * subtotal)
@@ -218,5 +229,6 @@
       $('.valor-total').text(soma.toFixed(2))
       $('.total-form').val(soma.toFixed(2))
     }
+  
   </script>
 </html>
