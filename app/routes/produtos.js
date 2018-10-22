@@ -1,6 +1,20 @@
 // Como eu dei o required no arquivo express.js, não se faz necessário de chamar o arquivo de conexão dentro do própria controller
 // var dbConnection = require('../infra/dbConnection');
 
+var multer  = require('multer')
+
+// var upload = multer({ dest: 'app/public/uploads/' })
+var storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, 'app/public/uploads')
+    },
+    filename: function (req, file, cb) {
+      cb(null, file.originalname)
+    }
+  })
+  
+var upload = multer({ storage: storage })
+
 module.exports = function(app){
     //Rotas
     
@@ -83,15 +97,19 @@ module.exports = function(app){
     
     // app.get('/produtos',listaProdutos) //posso criar uma var�vel e colocar essa fun��o dentro dessa vari�vel, caso eu for usar em mais de um lugar
         
-    app.post('/produtos',function(req,res){
+    app.post('/produtos',upload.single('avatar'),function(req,res){
         var connection = app.infra.dbConnection();
         var produtosBanco = new app.infra.produtosBanco(connection);
-        
+
+        var nome_imagem = req.file.originalname;
+        var caminho_imagem = req.file.destination;
+
         //dados do post
         var dados_form = {
             'nome' : req.body.nome,
             'preco' : req.body.preco,
-            'descricao' : req.body.descricao
+            'descricao' : req.body.descricao,
+            'imagem' : caminho_imagem+'/'+nome_imagem
         };
 
         req.assert('nome','Nome é obrigatório').notEmpty();
@@ -111,7 +129,7 @@ module.exports = function(app){
             return false;
         }
         var ingredientes = req.body.ingredientes;
-        
+
         produtosBanco.salva(dados_form,function(err,results){
             var dados_insert = {
                 'produto_id' : results.insertId,
@@ -128,16 +146,20 @@ module.exports = function(app){
         res.redirect(301,'/produtos');
     })
 
-    app.post('/produtos/ver',function(req,res){
+    app.post('/produtos/ver',upload.single('avatar'),function(req,res){
         var connection = app.infra.dbConnection();
         var produtosBanco = new app.infra.produtosBanco(connection);
         
+        var nome_imagem = req.file.originalname;
+        var caminho_imagem = req.file.destination;
+
         //dados do post
         var dados_form = {
             'id' : req.body.id,
             'nome' : req.body.nome,
             'preco' : req.body.preco,
-            'descricao' : req.body.descricao
+            'descricao' : req.body.descricao,
+            'imagem' : '/'+caminho_imagem+'/'+nome_imagem
         };
         
         req.assert('nome','Nome é obrigatório').notEmpty();

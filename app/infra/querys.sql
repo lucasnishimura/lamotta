@@ -4,7 +4,7 @@ Marcar querys j� executas
 *************************
 */
 
--- CREATE DATABASE `estudo_teste` /*!40100 DEFAULT CHARACTER SET latin1 */;
+-- CREATE DATABASE `lamotta_com_br_teste` /*!40100 DEFAULT CHARACTER SET latin1 */;
 
 -- CREATE TABLE `produtos` (
 --   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -23,7 +23,7 @@ Marcar querys j� executas
 -- ) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=big5;
 
 
--- CREATE TABLE `estudo`.`vendas` (
+-- CREATE TABLE `lamotta_com_br`.`vendas` (
 --   `id` INT NOT NULL AUTO_INCREMENT,
 --   `cliente_id` INT NULL,
 --   `data` DATETIME NULL,
@@ -49,69 +49,73 @@ Marcar querys j� executas
 -- ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 -- SELECT * FROM lamotta_com_br.usuario;
 
-ALTER TABLE `estudo`.`vendas` 
-DROP COLUMN `compra_id`;
+-- ALTER TABLE `lamotta_com_br`.`vendas` 
+-- DROP COLUMN `compra_id`;
 
-ALTER TABLE `estudo`.`vendas` 
-ADD COLUMN `valor` FLOAT(4,2) NULL AFTER `data`;
+-- ALTER TABLE `lamotta_com_br`.`vendas` 
+-- ADD COLUMN `valor` FLOAT(4,2) NULL AFTER `data`;
 
-INSERT INTO `estudo`.`vendas` (`cliente_id`, `data`, `valor`) VALUES ('1', '2018-09-12', '30.00');
-INSERT INTO `estudo`.`vendas` (`cliente_id`, `data`, `valor`) VALUES ('2', '2019-10-10', '60.50');
-INSERT INTO `estudo`.`vendas` (`cliente_id`, `data`, `valor`) VALUES ('3', '2018-02-22', '10.10');
-INSERT INTO `estudo`.`vendas` (`cliente_id`, `data`, `valor`) VALUES ('1', '2018-08-12', '12.00');
-
-
-CREATE TABLE `estudo`.`venda_produto` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `venda_id` INT NULL,
-  `produto_id` VARCHAR(45) NULL,
-  PRIMARY KEY (`id`));
-
-INSERT INTO `estudo`.`venda_produto` (`venda_id`, `produto_id`) VALUES ('1', '1');
-INSERT INTO `estudo`.`venda_produto` (`venda_id`, `produto_id`) VALUES ('1', '2');
-INSERT INTO `estudo`.`venda_produto` (`venda_id`, `produto_id`) VALUES ('1', '3');
-INSERT INTO `estudo`.`venda_produto` (`venda_id`, `produto_id`) VALUES ('1', '4');
-INSERT INTO `estudo`.`venda_produto` (`venda_id`, `produto_id`) VALUES ('2', '3');
-INSERT INTO `estudo`.`venda_produto` (`venda_id`, `produto_id`) VALUES ('2', '4');
-INSERT INTO `estudo`.`venda_produto` (`venda_id`, `produto_id`) VALUES ('3', '3');
-INSERT INTO `estudo`.`venda_produto` (`venda_id`, `produto_id`) VALUES ('3', '3');
-INSERT INTO `estudo`.`venda_produto` (`venda_id`, `produto_id`) VALUES ('4', '2');
-INSERT INTO `estudo`.`venda_produto` (`venda_id`, `produto_id`) VALUES ('4', '2');
-
-ALTER TABLE `estudo`.`venda_produto` 
-ADD COLUMN `quantidade` INT NULL AFTER `produto_id`;
+-- INSERT INTO `lamotta_com_br`.`vendas` (`cliente_id`, `data`, `valor`) VALUES ('1', '2018-09-12', '30.00');
+-- INSERT INTO `lamotta_com_br`.`vendas` (`cliente_id`, `data`, `valor`) VALUES ('2', '2019-10-10', '60.50');
+-- INSERT INTO `lamotta_com_br`.`vendas` (`cliente_id`, `data`, `valor`) VALUES ('3', '2018-02-22', '10.10');
+-- INSERT INTO `lamotta_com_br`.`vendas` (`cliente_id`, `data`, `valor`) VALUES ('1', '2018-08-12', '12.00');
 
 
-UPDATE `estudo`.`venda_produto` SET `quantidade`='1' WHERE `id`='1';
-UPDATE `estudo`.`venda_produto` SET `quantidade`='2' WHERE `id`='2';
-UPDATE `estudo`.`venda_produto` SET `quantidade`='2' WHERE `id`='3';
-UPDATE `estudo`.`venda_produto` SET `quantidade`='3' WHERE `id`='4';
-UPDATE `estudo`.`venda_produto` SET `quantidade`='1' WHERE `id`='5';
-UPDATE `estudo`.`venda_produto` SET `quantidade`='1' WHERE `id`='6';
-UPDATE `estudo`.`venda_produto` SET `quantidade`='1' WHERE `id`='7';
-UPDATE `estudo`.`venda_produto` SET `quantidade`='1' WHERE `id`='8';
-UPDATE `estudo`.`venda_produto` SET `quantidade`='2' WHERE `id`='9';
-UPDATE `estudo`.`venda_produto` SET `quantidade`='1' WHERE `id`='10';
+-- CREATE TABLE `lamotta_com_br`.`venda_produto` (
+--   `id` INT NOT NULL AUTO_INCREMENT,
+--   `venda_id` INT NULL,
+--   `produto_id` VARCHAR(45) NULL,
+--   PRIMARY KEY (`id`));
 
-CREATE TABLE `estudo`.`ingredientes` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `nome` VARCHAR(45) NULL,
-  `quantidade` INT NULL,
-  `preco` FLOAT(10,2) NULL,
-  PRIMARY KEY (`id`));
+-- INSERT INTO `lamotta_com_br`.`venda_produto` (`venda_id`, `produto_id`) VALUES ('1', '1');
+-- INSERT INTO `lamotta_com_br`.`venda_produto` (`venda_id`, `produto_id`) VALUES ('1', '2');
+-- INSERT INTO `lamotta_com_br`.`venda_produto` (`venda_id`, `produto_id`) VALUES ('1', '3');
+-- INSERT INTO `lamotta_com_br`.`venda_produto` (`venda_id`, `produto_id`) VALUES ('1', '4');
+-- INSERT INTO `lamotta_com_br`.`venda_produto` (`venda_id`, `produto_id`) VALUES ('2', '3');
+-- INSERT INTO `lamotta_com_br`.`venda_produto` (`venda_id`, `produto_id`) VALUES ('2', '4');
+-- INSERT INTO `lamotta_com_br`.`venda_produto` (`venda_id`, `produto_id`) VALUES ('3', '3');
+-- INSERT INTO `lamotta_com_br`.`venda_produto` (`venda_id`, `produto_id`) VALUES ('3', '3');
+-- INSERT INTO `lamotta_com_br`.`venda_produto` (`venda_id`, `produto_id`) VALUES ('4', '2');
+-- INSERT INTO `lamotta_com_br`.`venda_produto` (`venda_id`, `produto_id`) VALUES ('4', '2');
 
-  CREATE TABLE `lamotta_com_br`.`estoque` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `nome` VARCHAR(45) NULL,
-  `quantidade` INT NULL,
-  PRIMARY KEY (`id`));
+-- ALTER TABLE `lamotta_com_br`.`venda_produto` 
+-- ADD COLUMN `quantidade` INT NULL AFTER `produto_id`;
 
-  CREATE TABLE `lamotta_com_br`.`produto_estoque` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `produto_id` INT NULL,
-  `estoque_id` INT NULL,
-  `quantidade` INT NULL,
-  PRIMARY KEY (`id`));
+
+-- UPDATE `lamotta_com_br`.`venda_produto` SET `quantidade`='1' WHERE `id`='1';
+-- UPDATE `lamotta_com_br`.`venda_produto` SET `quantidade`='2' WHERE `id`='2';
+-- UPDATE `lamotta_com_br`.`venda_produto` SET `quantidade`='2' WHERE `id`='3';
+-- UPDATE `lamotta_com_br`.`venda_produto` SET `quantidade`='3' WHERE `id`='4';
+-- UPDATE `lamotta_com_br`.`venda_produto` SET `quantidade`='1' WHERE `id`='5';
+-- UPDATE `lamotta_com_br`.`venda_produto` SET `quantidade`='1' WHERE `id`='6';
+-- UPDATE `lamotta_com_br`.`venda_produto` SET `quantidade`='1' WHERE `id`='7';
+-- UPDATE `lamotta_com_br`.`venda_produto` SET `quantidade`='1' WHERE `id`='8';
+-- UPDATE `lamotta_com_br`.`venda_produto` SET `quantidade`='2' WHERE `id`='9';
+-- UPDATE `lamotta_com_br`.`venda_produto` SET `quantidade`='1' WHERE `id`='10';
+
+-- CREATE TABLE `lamotta_com_br`.`ingredientes` (
+--   `id` INT NOT NULL AUTO_INCREMENT,
+--   `nome` VARCHAR(45) NULL,
+--   `quantidade` INT NULL,
+--   `preco` FLOAT(10,2) NULL,
+--   PRIMARY KEY (`id`));
+
+--   CREATE TABLE `lamotta_com_br`.`estoque` (
+--   `id` INT NOT NULL AUTO_INCREMENT,
+--   `nome` VARCHAR(45) NULL,
+--   `quantidade` INT NULL,
+--   PRIMARY KEY (`id`));
+
+--   CREATE TABLE `lamotta_com_br`.`produto_estoque` (
+--   `id` INT NOT NULL AUTO_INCREMENT,
+--   `produto_id` INT NULL,
+--   `estoque_id` INT NULL,
+--   `quantidade` INT NULL,
+--   PRIMARY KEY (`id`));
+
+
+ALTER TABLE `lamotta_com_br`.`produtos` 
+ADD COLUMN `imagem` VARCHAR(45) NULL AFTER `descricao`;
 
 
 

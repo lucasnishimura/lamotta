@@ -44,12 +44,17 @@
                     <% } %>
                     
                 </div>
-                <form class="form-inserir" action="/produtos" method="post">
+                <form class="form-inserir" action="/produtos" method="post" enctype="multipart/form-data">
                   <div class="row">
                     <div class="col-md-3">
                       <h4>Dados do produto</h4>
                     </div>
                   </div><br>
+                  <div class="row form-group">
+                    <div class="col-md-3">
+                      <input type="file" name="avatar" />
+                    </div>
+                  </div>
                   <div class="row">
                     <div class="col-md-6">
                       <label for="">Nome do produto:</label>

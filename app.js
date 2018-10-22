@@ -4,13 +4,14 @@ var app = require('./config/express')(); //o ponto na frente do caminho diz que 
 //rendler do node passando o handler do express para o socket io ler
 var http = require('http').Server(app);
 
-//função que faz várias requisições
+//funï¿½ï¿½o que faz vï¿½rias requisiï¿½ï¿½es
 var io = require('socket.io')(http);
 
-// disponibiliza a varaável IO para todas as páginas
+// disponibiliza a varaï¿½vel IO para todas as pï¿½ginas
 app.set("io",io);
 
-// define as rotas, no entanto, como instalasmos o laod express, o carregamento das rotas são feitos no arquivo express.js
+
+// define as rotas, no entanto, como instalasmos o laod express, o carregamento das rotas sï¿½o feitos no arquivo express.js
 // var rotasProdutos = require('./app/routes/produtos')(app);
 
 //chamada quando o servidor esta pronto

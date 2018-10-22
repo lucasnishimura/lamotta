@@ -50,7 +50,7 @@ ProdutosBanco.prototype.verEstoqueProduto =  function(produto,callback){
 }
 
 ProdutosBanco.prototype.altera =  function(produto,callback){
-	this.connection.query('update produtos set nome="'+produto.nome+'", preco="'+produto.preco+'", descricao="'+produto.descricao+'" where id = '+produto.id,callback);
+	this.connection.query('update produtos set nome="'+produto.nome+'", preco="'+produto.preco+'", descricao="'+produto.descricao+'", imagem="'+produto.imagem+'" where id = '+produto.id,callback);
 }	
 
 module.exports = function(){

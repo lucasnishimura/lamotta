@@ -35,7 +35,6 @@ module.exports = function(){
     
     app.use(expressValidator());
    
-    
     //load('routes').into(app); com isso queremos dizer que "routes deve ser carregado dentro da app", podemos encadear outras informa��es junto
     load('routes',{cwd: 'app'}) //para n�o procurar no sistema inteiro o 'cwd' indica dentro de qual pasta ele deve procurar
     .then('infra') //significa que depois de carregar as rotas "Ent�o" carregue tudo dentro de infra
