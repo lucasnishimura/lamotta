@@ -31,9 +31,13 @@ module.exports = function(app){
       loginBanco.lista(dados_form,function(err,results){
         if(!err){
           if(results.length > 0){
+            localStorage.setItem('nome',results[0].nome);
+            localStorage.setItem('logado','sim');
+            console.log(localStorage.getItem('logado'));
             res.redirect('/');
           }else{
             // caso não ache o usuário cai na primeira condição
+            localStorage.setItem('logado','nao');
             res.render('coreui/login',{mensagem: 'ERRO'});
           }
         }else{
