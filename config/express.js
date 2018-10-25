@@ -24,8 +24,9 @@ module.exports = function(){
         secret: '2C44-4D44-WppQ38S',
         resave: true,
         saveUninitialized: true,
-        maxAge: 1000 * 60 * 10
+        maxAge: Date.now() + (30 * 86400 * 1000)
     }));
+
 
     //faz a inser��o de recursos est�ticos, static � um middleware do express
     app.use(express.static('./app/public'));
