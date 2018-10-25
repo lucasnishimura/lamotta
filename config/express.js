@@ -13,11 +13,20 @@ var expressValidator = require('express-validator');
 //carega o body parse que trata o recebimento via post
 var md5 = require('md5');
 
+session = require('express-session');
+
 //module eh a variavel que referencia o objeto em si, exports que a funcao que vc quer que retorne, 
 module.exports = function(){
 
     var app = express();
-    
+
+    app.use(session({
+        secret: '2C44-4D44-WppQ38S',
+        resave: true,
+        saveUninitialized: true,
+        maxAge: 1000 * 60 * 10
+    }));
+
     //faz a inser��o de recursos est�ticos, static � um middleware do express
     app.use(express.static('./app/public'));
     app.use(express.static('./'));
