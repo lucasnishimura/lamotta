@@ -18,7 +18,7 @@ var upload = multer({ storage: storage })
 module.exports = function(app){
     //Rotas
     
-    app.get('/produtos',function(req,res){
+    app.get('/produtos',auth,function(req,res){
         
         var connection = app.infra.dbConnection();
         var produtosBanco = new app.infra.produtosBanco(connection);
@@ -57,7 +57,7 @@ module.exports = function(app){
         connection.end();
     })
 
-    app.get('/produtos/ver/:id?',function(req,res){
+    app.get('/produtos/ver/:id?',auth,function(req,res){
        
         var connection = app.infra.dbConnection();
         var produtosBanco = new app.infra.produtosBanco(connection);

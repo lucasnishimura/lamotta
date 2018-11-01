@@ -15,6 +15,7 @@ var md5 = require('md5');
 
 session = require('express-session');
 
+require('../app/routes/auth')
 //module eh a variavel que referencia o objeto em si, exports que a funcao que vc quer que retorne, 
 module.exports = function(){
 
@@ -50,7 +51,6 @@ module.exports = function(){
     .then('infra') //significa que depois de carregar as rotas "Ent�o" carregue tudo dentro de infra
     .into(app);
     
-
     // se n�o existir a p�gina chama essa
     app.use(function(req,res,next){
         res.status(404).render('erros/404');

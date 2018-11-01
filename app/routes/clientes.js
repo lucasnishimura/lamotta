@@ -1,5 +1,5 @@
 module.exports = function(app){
-    app.get('/clientes',function(req,res){
+    app.get('/clientes',auth,function(req,res){
         var connection = app.infra.dbConnection();
         var clientesBanco = new app.infra.clientesBanco(connection);
 
@@ -30,11 +30,11 @@ module.exports = function(app){
         connection.end();
     }) 
     
-    app.get('/clientes/inserir',function(req,res){
+    app.get('/clientes/inserir',auth,function(req,res){
         res.render("clientes/inserir",{errosValidacao:{},clienteInfo:{}});   
     })
 
-    app.get('/clientes/ver/:id?',function(req,res){
+    app.get('/clientes/ver/:id?',auth,function(req,res){
         var connection = app.infra.dbConnection();
         var clientesBanco = new app.infra.clientesBanco(connection);
         
@@ -61,7 +61,7 @@ module.exports = function(app){
         connection.end();
     })
 
-    app.post('/clientes/ver',function(req,res){
+    app.post('/clientes/ver',auth,function(req,res){
         var connection = app.infra.dbConnection();
         var clientesBanco = new app.infra.clientesBanco(connection);
         
@@ -91,7 +91,7 @@ module.exports = function(app){
         })        
     })
 
-    app.post('/clientes',function(req,res){
+    app.post('/clientes',auth,function(req,res){
         var connection = app.infra.dbConnection();
         var clientesBanco = new app.infra.clientesBanco(connection);
         

@@ -1,5 +1,5 @@
 module.exports = function(app){
-    app.get('/vendas',function(req,res){
+    app.get('/vendas',auth,function(req,res){
 
         var connection = app.infra.dbConnection();
         var vendasBanco = new app.infra.vendasBanco(connection);
@@ -50,7 +50,7 @@ module.exports = function(app){
         })
     })
 
-    app.post('/vendas',function(req,res){
+    app.post('/vendas',auth,function(req,res){
         var connection = app.infra.dbConnection();
         var vendasBanco = new app.infra.vendasBanco(connection);
 
@@ -81,7 +81,7 @@ module.exports = function(app){
         
     })
 
-    app.get('/vendas/ver/:id?',function(req,res){
+    app.get('/vendas/ver/:id?',auth,function(req,res){
         var connection = app.infra.dbConnection();
         var vendasBanco = new app.infra.vendasBanco(connection);
         var clientesBanco = new app.infra.clientesBanco(connection);
@@ -123,7 +123,7 @@ module.exports = function(app){
         })
     })
 
-    app.get('/vendas/inserir',function(req,res){
+    app.get('/vendas/inserir',auth,function(req,res){
         var connection = app.infra.dbConnection();
         var clientesBanco = new app.infra.clientesBanco(connection);
 

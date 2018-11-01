@@ -1,5 +1,5 @@
 module.exports = function(app){
-    app.get('/ingredientes',function(req,res){
+    app.get('/ingredientes',auth,function(req,res){
        
         var connection = app.infra.dbConnection();
         var ingredientesBanco = new app.infra.ingredientesBanco(connection);
@@ -29,7 +29,7 @@ module.exports = function(app){
         connection.end();
     })
 
-    app.get('/ingredientes/ver/:id?',function(req,res){
+    app.get('/ingredientes/ver/:id?',auth,function(req,res){
        
         var connection = app.infra.dbConnection();
         var ingredientesBanco = new app.infra.ingredientesBanco(connection);
@@ -52,11 +52,11 @@ module.exports = function(app){
     })
            
 
-    app.get('/ingredientes/inserir',function(req,res){
+    app.get('/ingredientes/inserir',auth,function(req,res){
         res.render("ingredientes/inserir",{errosValidacao:{},ingredienteInfo:{}});   
     })
 
-    app.post('/ingredientes',function(req,res){
+    app.post('/ingredientes',auth,function(req,res){
         var connection = app.infra.dbConnection();
         var ingredientesBanco = new app.infra.ingredientesBanco(connection);
         
@@ -84,7 +84,7 @@ module.exports = function(app){
         })        
     })
 
-    app.post('/ingredientes/ver',function(req,res){
+    app.post('/ingredientes/ver',auth,function(req,res){
         var connection = app.infra.dbConnection();
         var ingredientesBanco = new app.infra.ingredientesBanco(connection);
         

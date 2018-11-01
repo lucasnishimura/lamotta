@@ -1,5 +1,5 @@
 module.exports = function(app){
-    app.get('/estoque',function(req,res){
+    app.get('/estoque',auth,function(req,res){
        
         var connection = app.infra.dbConnection();
         var estoqueBanco = new app.infra.estoqueBanco(connection);
@@ -27,7 +27,7 @@ module.exports = function(app){
         connection.end();
     })
 
-    app.get('/estoque/ver/:id?',function(req,res){
+    app.get('/estoque/ver/:id?',auth,function(req,res){
        
         var connection = app.infra.dbConnection();
         var estoqueBanco = new app.infra.estoqueBanco(connection);
@@ -50,11 +50,11 @@ module.exports = function(app){
     })
            
 
-    app.get('/estoque/inserir',function(req,res){
+    app.get('/estoque/inserir',auth,function(req,res){
         res.render("estoque/inserir",{errosValidacao:{},estoqueInfo:{}});   
     })
 
-    app.post('/estoque',function(req,res){
+    app.post('/estoque',auth,function(req,res){
         var connection = app.infra.dbConnection();
         var estoqueBanco = new app.infra.estoqueBanco(connection);
         
@@ -81,7 +81,7 @@ module.exports = function(app){
         })        
     })
 
-    app.post('/estoque/ver',function(req,res){
+    app.post('/estoque/ver',auth,function(req,res){
         var connection = app.infra.dbConnection();
         var estoqueBanco = new app.infra.estoqueBanco(connection);
         
@@ -108,7 +108,7 @@ module.exports = function(app){
         })        
     })
 
-    app.post('/estoque/alterarquantidade',function(req,res){
+    app.post('/estoque/alterarquantidade',auth,function(req,res){
         var connection = app.infra.dbConnection();
         var estoqueBanco = new app.infra.estoqueBanco(connection);
         
