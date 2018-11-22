@@ -64,7 +64,7 @@ module.exports = function(app){
         var estoqueBanco = new app.infra.estoqueBanco(connection);
 
         estoqueResults = {}
-        estoqueBanco.todos(function(err,results){
+        nomestoqueBanco.todos(function(err,results){
             estoqueResults = results;
         })
 
