@@ -1,5 +1,10 @@
 module.exports = function(app){
-    app.get('/clientes',auth,function(req,res){
+
+    app.get('/clientes',function(req,res){
+        res.render("clientes/lista");
+    })
+
+    app.get('/clientes_listar',auth,function(req,res){
         var connection = app.infra.dbConnection();
         var clientesBanco = new app.infra.clientesBanco(connection);
 

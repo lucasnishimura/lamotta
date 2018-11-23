@@ -64,16 +64,16 @@
                       <p><b>Filtros:</b></p>
                     </div>
                     <div class="col-md-1">
-                      <input type="text" class="form-control" name="id" id="id" value="<%=filtros.id%>" placeholder="#ID">
+                      <input type="text" class="form-control" name="id" id="id" value="" placeholder="#ID">
                     </div>
                     <div class="col-md-3">
-                      <input type="text" class="form-control" name="nome" id="nome" value="<%=filtros.nome%>" placeholder="Nome">
+                      <input type="text" class="form-control" name="nome" id="nome" value="" placeholder="Nome">
                     </div>
                     <div class="col-md-3">
-                      <input type="text" class="form-control" name="cliente" id="cliente" value="<%=filtros.cliente%>" placeholder="Cliente">
+                      <input type="text" class="form-control" name="cliente" id="cliente" value="" placeholder="Cliente">
                     </div>
                     <div class="col-md-3">
-                      <input type="text" class="form-control" name="empresa" id="empresa" value="<%=filtros.empresa%>" placeholder="Empresa">
+                      <input type="text" class="form-control" name="empresa" id="empresa" value="" placeholder="Empresa">
                     </div>
                     <div class="col-md-1">
                       <button type="button" id="buscar" class="btn btn-success pull-right">Buscar</button>
@@ -92,15 +92,15 @@
                             <td>Empresa</td>
                             <td>Ver</td>
                         </tr>
-                        <% for(var i=0;i<lista.length;i++){ %>
+                        
                         <tr>
-                            <td><%=lista[i].id%></td>
-                            <td><%=lista[i].nome%></td>
-                            <td><%=lista[i].cliente%></td>
-                            <td><%=lista[i].empresa%></td>
-                            <td><a class="btn btn-primary" href="/clientes/ver/<%=lista[i].id%>">Ver</a></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td><a class="btn btn-primary" href="/clientes/ver/">Ver</a></td>
                         </tr>
-                        <% } %>
+                        
                     </table>
   
                   </div>
