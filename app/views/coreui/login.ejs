@@ -3,7 +3,7 @@
 * CoreUI - Free Bootstrap Admin Template
 * @version v2.0.0
 * @link https://coreui.io
-* Copyright (c) 2018 creativeLabs Łukasz Holeczek
+* Copyright (c) 2018 creativeLabs ŝukasz Holeczek
 * Licensed under MIT (https://coreui.io/license)
 -->
 
@@ -14,7 +14,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <meta name="description" content="CoreUI - Open Source Bootstrap Admin Template">
-    <meta name="author" content="Łukasz Holeczek">
+    <meta name="author" content="ŝukasz Holeczek">
     <meta name="keyword" content="Bootstrap,Admin,Template,Open,Source,jQuery,CSS,HTML,RWD,Dashboard">
     <title>CoreUI Free Bootstrap Admin Template</title>
     <!-- Icons-->
@@ -44,7 +44,7 @@
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-md-8">
-          <form action="/login" method="post">
+          <form id="form_login" method="post">
             <div class="card-group">
               <div class="card p-4">
                 <div class="card-body">
@@ -56,7 +56,7 @@
                         <i class="icon-user"></i>
                       </span>
                     </div>
-                    <input class="form-control" name="nome" type="text" placeholder="Username">
+                    <input class="form-control" name="nome" id="nome" type="text" placeholder="Username">
                   </div>
                   <div class="input-group mb-4">
                     <div class="input-group-prepend">
@@ -64,11 +64,11 @@
                         <i class="icon-lock"></i>
                       </span>
                     </div>
-                    <input class="form-control" type="password" name="senha" placeholder="Password">
+                    <input class="form-control" type="password" id="senha" name="senha" placeholder="Password">
                   </div>
                   <div class="row">
                     <div class="col-6">
-                      <button class="btn btn-primary px-4" type="submit">Login</button>
+                      <button class="btn btn-primary px-4" type="button" id="DoLogin">Login</button>
                     </div>
                     <div class="col-6 text-right">
                       <button class="btn btn-link px-0" type="button">Forgot password?</button>
@@ -100,6 +100,37 @@
     <script src="node_modules/perfect-scrollbar/dist/perfect-scrollbar.min.js"></script>
     <script src="node_modules/@coreui/coreui/dist/js/coreui.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.0/themes/base/jquery-ui.css" />
+    <script src="http://code.jquery.com/jquery-1.8.2.js"></script>
+    <script src="http://code.jquery.com/ui/1.9.0/jquery-ui.js"></script>
+    <script src="https://cdn.rawgit.com/plentz/jquery-maskmoney/master/dist/jquery.maskMoney.min.js" type="text/javascript"></script>
+    <script src="/js/global.js"></script>
+    <script>
+      $(document).ready(function(){
+        // window.location.href = '/login';
+        window.history.pushState('page2', 'Title', '/login');
+        localStorage.removeItem('auth');
+        localStorage.removeItem('token');
+      })
+      $(document).on('click','#DoLogin',function(){
+        $.ajax({
+          url: '/login',
+          type: 'POST',
+          dataType: 'JSON', //DAdo
+          data: {
+            nome: $('#nome').val(),
+            senha: $('#senha').val()
+          },
+          success: function(data){
+            console.log(data)
+            if(data.auth){
+              localStorage.setItem('auth',data.auth);
+              localStorage.setItem('token',data.token);
+              window.location.href = '/';
+            }
+          }
+      })
+      })
+    </script>
   </body>
 </html>

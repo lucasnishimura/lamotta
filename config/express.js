@@ -15,6 +15,10 @@ var md5 = require('md5');
 
 session = require('express-session');
 
+require("dotenv-safe").load();
+jwt = require('jsonwebtoken');
+
+
 require('../app/routes/auth')
 //module eh a variavel que referencia o objeto em si, exports que a funcao que vc quer que retorne, 
 module.exports = function(){

@@ -10,7 +10,6 @@ var io = require('socket.io')(http);
 // disponibiliza a vara�vel IO para todas as p�ginas
 app.set("io",io);
 
-
 // define as rotas, no entanto, como instalasmos o laod express, o carregamento das rotas s�o feitos no arquivo express.js
 // var rotasProdutos = require('./app/routes/produtos')(app);
 

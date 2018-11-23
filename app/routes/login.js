@@ -1,7 +1,7 @@
 module.exports = function(app){
   app.get('/login',function(req,res){
     //a funcao send cospe o dado na tela
-    res.render("coreui/login",{mensagem: null});   
+    res.render("coreui/login",{mensagem: null,token: req.params.token});   
   })
 
   app.post('/login',function(req,res){
@@ -15,7 +15,7 @@ module.exports = function(app){
     req.assert('senha','A senha é obrigatória').notEmpty();
     
     var erros = req.validationErrors();
-    
+  
     if(erros){
         res.format({
             html: function(){
@@ -31,12 +31,16 @@ module.exports = function(app){
       loginBanco.lista(dados_form,function(err,results){
         if(!err){
           if(results.length > 0){
-            req.session.user = "amy";
-            req.session.admin = true;
-            res.redirect('/');
+                       // res.redirect('/');
+            const id = 1; //esse id viria do banco de dados
+            var token = jwt.sign({ id },process.env.SECRET, {
+            expiresIn: 300 // expires in 5min
+            });
+            res.status(200).send({ auth: true, token: token});
+            
           }else{
             // caso não ache o usuário cai na primeira condição
-            res.render('coreui/login',{mensagem: 'ERRO'});
+            res.status(400).send({ auth: false, token: null });
           }
         }else{
           res.format({
