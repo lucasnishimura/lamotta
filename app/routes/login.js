@@ -29,6 +29,7 @@ module.exports = function(app){
       }
       
       loginBanco.lista(dados_form,function(err,results){
+        console.log(err)
         if(!err){
           if(results.length > 0){
                        // res.redirect('/');

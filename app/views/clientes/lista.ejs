@@ -83,25 +83,8 @@
                 <div class="row "> 
                   <!-- <a href="produtos/inserir">Inserir novo produto</a><br>
                   <a href="/">Voltar</a> -->
-                  <div class="col-md-12">
-                    <table class="table">
-                        <tr class="table-title">
-                            <td>Id</td>
-                            <td>Nome</td>
-                            <td>Cliente</td>
-                            <td>Empresa</td>
-                            <td>Ver</td>
-                        </tr>
-                        
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td><a class="btn btn-primary" href="/clientes/ver/">Ver</a></td>
-                        </tr>
-                        
-                    </table>
+                  <div class="col-md-12 table-clientes">
+                  
   
                   </div>
                 </div>
@@ -122,7 +105,60 @@
   </body>
   <script>
     $(document).on('click','#buscar',function(){
-      window.location = '/clientes?id='+$('#id').val()+'&nome='+$('#nome').val()+'&cliente='+$('#cliente').val()+'&empresa='+$('#empresa').val();
+      // window.location = '/clientes?id='+$('#id').val()+'&nome='+$('#nome').val()+'&cliente='+$('#cliente').val()+'&empresa='+$('#empresa').val();
+      getClientes($('#id').val(),$('#nome').val(),$('#cliente').val(),$('#empresa').val())
     })
+
+    $(document).ready(function(){
+      getClientes();
+    })
+
+    function getClientes(id = '',nome = '',cliente = '',empresa = ''){
+
+        $.ajax({
+          url: '/clientes/listar',
+          type: 'POST',
+          dataType: 'JSON',
+          data: {
+            id: id,
+            nome: nome,
+            cliente: cliente,
+            empresa: empresa
+          },
+          headers: {
+            'x-access-token': localStorage.getItem('token')
+          },
+          success: function(data){
+            console.log(data)
+
+            var template = '';
+            for (index = 0; index < data.length; index++) {
+              template += ` <tr>
+                <td>`+data[index].id+`</td>
+                <td>`+data[index].nome+`</td>
+                <td>`+data[index].cliente+`</td>
+                <td>`+data[index].empresa+`</td>
+                <td><button class="btn btn-primary cliente-ver" data-ref="`+data[index].id+`">Ver</buton></td>
+                </tr>`;
+            }
+
+            var html = `<table class="table">
+                        <tr class="table-title">
+                            <td>Id</td>
+                            <td>Nome</td>
+                            <td>Cliente</td>
+                            <td>Empresa</td>
+                            <td>Ver</td>
+                        </tr>
+                        `+template+`
+                    </table>`;
+
+            $('.table-clientes').html(html)
+          },
+          error: function(data){
+            window.location = '/login';
+          }
+        })
+    }
   </script>
 </html>

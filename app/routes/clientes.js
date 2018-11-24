@@ -4,18 +4,14 @@ module.exports = function(app){
         res.render("clientes/lista");
     })
 
-    app.get('/clientes_listar',auth,function(req,res){
+    app.post('/clientes/listar',auth,function(req,res){
+        
         var connection = app.infra.dbConnection();
         var clientesBanco = new app.infra.clientesBanco(connection);
 
-        var dados_filtro = {
-            id: req.query.id != undefined ? decodeURI(req.query.id) : '',
-            nome: req.query.nome != undefined ? decodeURI(req.query.nome) : '',
-            cliente: req.query.cliente != undefined ? decodeURI(req.query.cliente) : '',
-            empresa: req.query.empresa != undefined ? decodeURI(req.query.empresa) : ''
-       }
+        //para pegar por parametro em caso de via get req.query.parametrodaurl
         
-        clientesBanco.lista(dados_filtro,function(erros,resultados){
+        clientesBanco.lista(req.body,function(erros,resultados){
             if(erros){
                 //next executa a próxima função da cadeia de funções
                 console.log('Erro no banco de dados');
@@ -27,7 +23,7 @@ module.exports = function(app){
                     res.render("clientes/lista",{lista:resultados,filtros:dados_filtro});   
                 },
                 json: function(){
-                    res.json(results);
+                    res.json(resultados);
                 }
             })
         })
@@ -48,7 +44,7 @@ module.exports = function(app){
 
         clientesBanco.ver(dados_cliente,function(erros,resultados){
             if(erros){
-                //next executa a próxima função da cadeia de funções
+                //next executa a próxima $unção da cadeia de funções
                 console.log('Erro no banco de dados');
                 return;
             }

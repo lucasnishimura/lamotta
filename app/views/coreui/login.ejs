@@ -105,6 +105,7 @@
     <script src="http://code.jquery.com/ui/1.9.0/jquery-ui.js"></script>
     <script src="https://cdn.rawgit.com/plentz/jquery-maskmoney/master/dist/jquery.maskMoney.min.js" type="text/javascript"></script>
     <script src="/js/global.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script>
       $(document).ready(function(){
         // window.location.href = '/login';
@@ -128,8 +129,11 @@
               localStorage.setItem('token',data.token);
               window.location.href = '/';
             }
+          },
+          error: function(data){
+            swal('Erro','Usuário ou senha inválidos','error');
           }
-      })
+        })
       })
     </script>
   </body>
