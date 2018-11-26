@@ -774,4 +774,23 @@
     </div>
     <%include ../layouts/footer.ejs%>
   </body>
+  <script>
+  function requestURL(url){
+    $.ajax({
+          url: url,
+          type: 'GET',
+          headers: {
+            'x-access-token': localStorage.getItem('token')
+          },
+          success: function(data){
+            console.log(data)
+            window.location = '/'+data.url
+          },
+          error: function(data){
+            window.location = '/login';
+            // console.log('Erro token')
+          }
+        })
+  }
+  </script>
 </html>

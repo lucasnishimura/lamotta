@@ -1,7 +1,8 @@
 module.exports = function(app){
 
-    app.get('/clientes',function(req,res){
-        res.render("clientes/lista");
+    app.get('/clientes',auth,function(req,res){
+        // res.render("clientes/lista");
+        res.status(200).send({ auth: true, url: "clientes"});
     })
 
     app.post('/clientes/listar',auth,function(req,res){
