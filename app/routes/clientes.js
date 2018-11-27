@@ -1,8 +1,7 @@
 module.exports = function(app){
-
-    app.get('/clientes',auth,function(req,res){
-        // res.render("clientes/lista");
-        res.status(200).send({ auth: true, url: "clientes"});
+    
+    app.get('/clientes',function(req,res){
+        res.render("clientes/lista");
     })
 
     app.post('/clientes/listar',auth,function(req,res){
@@ -32,7 +31,7 @@ module.exports = function(app){
         connection.end();
     }) 
     
-    app.get('/clientes/inserir',auth,function(req,res){
+    app.get('/clientes/inserir',function(req,res){
         res.render("clientes/inserir",{errosValidacao:{},clienteInfo:{}});   
     })
 

@@ -25,3 +25,24 @@
       <script src="https://cdn.rawgit.com/plentz/jquery-maskmoney/master/dist/jquery.maskMoney.min.js" type="text/javascript"></script>
       <script src="/js/global.js"></script>
       <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+      <script>
+        function requestURL(url){
+          $.ajax({
+                url: '/validate',
+                type: 'GET',
+                dataType: 'JSON',
+                headers: {
+                  'x-access-token': localStorage.getItem('token')
+                },
+                success: function(data){
+                  // console.log('/'+data['url'])
+                  console.log('/'+url)
+                  window.location = '/'+url;
+                },
+                error: function(data){
+                  window.location = '/login';
+                  console.log('Erro token')
+                }
+              })
+        }
+        </script>

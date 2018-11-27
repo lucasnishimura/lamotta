@@ -54,7 +54,7 @@
                   <h1 class="titulo-pagina">Clientes</h1><p class="titulo-pagina titulo-pagina-desc"> | Listagem</p> 
                   </div>
                   <div class="col-md-1 pull-right">
-                    <a class="btn" href="/clientes/inserir"><i class="fa fa-2x fa-plus-square"></i></a>
+                    <a class="btn" onclick="requestURL('clientes/inserir')"><i class="fa fa-2x fa-plus-square"></i></a>
                   </div>
                 </div>
                 <hr>
@@ -110,11 +110,11 @@
     })
 
     $(document).ready(function(){
+      $('.container-load').show()
       getClientes();
     })
 
     function getClientes(id = '',nome = '',cliente = '',empresa = ''){
-
         $.ajax({
           url: '/clientes/listar',
           type: 'POST',
@@ -154,9 +154,12 @@
                     </table>`;
 
             $('.table-clientes').html(html)
+            $('.container-load').hide()
           },
           error: function(data){
+            $('.container-load').hide()
             window.location = '/login';
+            // console.log('red view clientes')
           }
         })
     }
