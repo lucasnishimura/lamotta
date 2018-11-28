@@ -68,10 +68,10 @@
                     <% } %>
                     
                   </div>
-                  <form action="/clientes" method="post">
+                  <form method="post">
                     <div class="col-md-4">
                       <label for="">Nome do cliente</label>
-                      <input type="text" name="nome" placeholder="Digite o nome do cliente" class="form-control" value="<%=clienteInfo.nome%>">
+                      <input type="text" id="nome" name="nome" placeholder="Digite o nome do cliente" class="form-control" value="<%=clienteInfo.nome%>">
                     </div>
                     <div class="col-md-4">
                       <label for="">Nome do parceiro</label>
@@ -86,7 +86,7 @@
                         <label for="">Empresa</label>
                         <input type="text" name="empresa" id="empresa" placeholder="Digite o nome da empresa" class="form-control" value="<%=clienteInfo.empresa%>">
                       <br>
-                      <input type="submit" class="btn btn-success" value="Gravar">
+                      <input type="button" class="btn btn-success enviar" value="Gravar">
                     </div>
                   </form>
 
@@ -104,4 +104,42 @@
     </div>
     <%include ../layouts/footer.ejs%>
   </body>
+  <script>
+  $(document).on('click','.enviar',function(){
+    $.ajax({
+          url: '/clientes',
+          type: 'POST',
+          dataType: 'JSON',
+          data: {
+            nome: $('#nome').val(),
+            cliente: $('#cliente').val(),
+            empresa: $('#empresa').val()
+          },
+          headers: {
+            'x-access-token': localStorage.getItem('token')
+          },
+          success: function(data){
+            console.log(data)
+            swal({
+              title:'Sucesso',
+              text:'Cliente cadastrado com sucesso',
+              icon:'success',
+              function(){
+                window.location = '/clientes'
+              }
+            })
+          },
+          error: function(data){
+            swal({
+              title:'Erro',
+              text:'Erro ao cadastrar',
+              icon:'error',
+              function(){
+                window.location = '/clientes'
+              }
+            } )
+          }
+        })
+  })
+  </script>
 </html>

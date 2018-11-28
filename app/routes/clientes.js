@@ -99,7 +99,6 @@ module.exports = function(app){
         //dados do post
         var dados_form = req.body;
         req.assert('nome','Nome é obrigatório').notEmpty();       
-        
         var erros = req.validationErrors();
         if(erros){
             res.format({
@@ -114,7 +113,12 @@ module.exports = function(app){
         }
 
         clientesBanco.salva(dados_form,function(err,results){
-            res.redirect('/clientes');
+            if(!err){
+                return res.status(200).send({auth:true}); 
+            }else{
+                return res.status(400).send({auth:false}); 
+            }
+            // res.redirect('/clientes');
         })        
     })
 
