@@ -119,25 +119,22 @@
             'x-access-token': localStorage.getItem('token')
           },
           success: function(data){
-            console.log(data)
             swal({
               title:'Sucesso',
               text:'Cliente cadastrado com sucesso',
-              icon:'success',
-              function(){
+              icon:'success'})
+              .then((value) =>{
                 window.location = '/clientes'
-              }
-            })
+              })
           },
           error: function(data){
             swal({
               title:'Erro',
               text:'Erro ao cadastrar',
-              icon:'error',
+              icon:'error'},
               function(){
                 window.location = '/clientes'
-              }
-            } )
+              })
           }
         })
   })

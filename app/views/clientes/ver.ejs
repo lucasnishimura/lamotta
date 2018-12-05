@@ -72,7 +72,7 @@
                     <input type="hidden" name="id" value="<%=clienteInfo.id%>">
                     <div class="col-md-4">
                       <label for="">Nome do cliente</label>
-                      <input type="text" name="nome" placeholder="Digite o nome do cliente" class="form-control" value="<%=clienteInfo.nome%>">
+                      <input type="text" name="nome" id="nome" placeholder="Digite o nome do cliente" class="form-control" value="<%=clienteInfo.nome%>">
                     </div>
                     <div class="col-md-4">
                       <label for="">Nome do parceiro</label>
@@ -108,4 +108,22 @@
     </div>
     <%include ../layouts/footer.ejs%>
   </body>
+  <script>
+    // $.ajax({
+    //     url: '/clientes/ver',
+    //     type: 'POST',
+    //     dataType: 'JSON',
+    //     headers: {
+    //       'x-access-token': localStorage.getItem('token')
+    //     },
+    //     success: function(data){
+    //       console.log('/'+data['url'])
+    //       window.location = '/'+url;
+    //     },
+    //     error: function(data){
+    //       console.log('Erro token')
+    //       window.location = '/login';
+    //     }
+    //   })
+  </script>
 </html>

@@ -35,13 +35,12 @@
                   'x-access-token': localStorage.getItem('token')
                 },
                 success: function(data){
-                  // console.log('/'+data['url'])
-                  console.log('/'+url)
+                  console.log('/'+data['url'])
                   window.location = '/'+url;
                 },
                 error: function(data){
-                  window.location = '/login';
                   console.log('Erro token')
+                  window.location = '/login';
                 }
               })
         }

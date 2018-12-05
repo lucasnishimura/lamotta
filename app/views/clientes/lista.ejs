@@ -114,6 +114,11 @@
       getClientes();
     })
 
+    // $(document).on('click','.cliente-ver',function(){
+    //   var cliente_id = $(this).data('ref');
+      
+    // })
+
     function getClientes(id = '',nome = '',cliente = '',empresa = ''){
         $.ajax({
           url: '/clientes/listar',
@@ -138,7 +143,7 @@
                 <td>`+data[index].nome+`</td>
                 <td>`+data[index].cliente+`</td>
                 <td>`+data[index].empresa+`</td>
-                <td><button class="btn btn-primary cliente-ver" data-ref="`+data[index].id+`">Ver</buton></td>
+                <td><button class="btn btn-primary cliente-ver" onclick=requestURL('clientes/ver/`+data[index].id+`') data-ref="`+data[index].id+`">Ver</buton></td>
                 </tr>`;
             }
 

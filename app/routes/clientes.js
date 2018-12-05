@@ -35,7 +35,7 @@ module.exports = function(app){
         res.render("clientes/inserir",{errosValidacao:{},clienteInfo:{}});   
     })
 
-    app.get('/clientes/ver/:id?',auth,function(req,res){
+    app.get('/clientes/ver/:id?',function(req,res){
         var connection = app.infra.dbConnection();
         var clientesBanco = new app.infra.clientesBanco(connection);
         

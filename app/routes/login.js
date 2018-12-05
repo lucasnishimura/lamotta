@@ -34,7 +34,8 @@ module.exports = function(app){
                        // res.redirect('/');
             const id = 1; //esse id viria do banco de dados
             var token = jwt.sign({ id },process.env.SECRET, {
-            expiresIn: 300 // expires in 5min
+            expiresIn: 3000 
+            // expiresIn: 300 // expires in 5min
             });
             res.status(200).send({ auth: true, token: token});
             
