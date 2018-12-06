@@ -68,7 +68,7 @@
                     <% } %>
                     
                   </div>
-                  <form action="/clientes/ver" method="post">
+                  <form method="post">
                     <input type="hidden" name="id" value="<%=clienteInfo.id%>">
                     <div class="col-md-4">
                       <label for="">Nome do cliente</label>
@@ -90,7 +90,7 @@
                         <label for="">Empresa</label>
                         <input type="text" name="empresa" id="empresa" placeholder="Digite o nome da empresa" class="form-control" value="<%=clienteInfo.empresa%>">
                       <br>
-                      <input type="submit" class="btn btn-success" value="Gravar">
+                      <input type="button" class="btn btn-success gravar" value="Gravar">
                     </div>
                   </form>
 
