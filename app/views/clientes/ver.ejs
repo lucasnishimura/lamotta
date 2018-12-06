@@ -69,7 +69,7 @@
                     
                   </div>
                   <form method="post">
-                    <input type="hidden" name="id" value="<%=clienteInfo.id%>">
+                    <input type="hidden" id="id" name="id" value="<%=clienteInfo.id%>">
                     <div class="col-md-4">
                       <label for="">Nome do cliente</label>
                       <input type="text" name="nome" id="nome" placeholder="Digite o nome do cliente" class="form-control" value="<%=clienteInfo.nome%>">
@@ -109,21 +109,36 @@
     <%include ../layouts/footer.ejs%>
   </body>
   <script>
-    // $.ajax({
-    //     url: '/clientes/ver',
-    //     type: 'POST',
-    //     dataType: 'JSON',
-    //     headers: {
-    //       'x-access-token': localStorage.getItem('token')
-    //     },
-    //     success: function(data){
-    //       console.log('/'+data['url'])
-    //       window.location = '/'+url;
-    //     },
-    //     error: function(data){
-    //       console.log('Erro token')
-    //       window.location = '/login';
-    //     }
-    //   })
+    $(document).on('click','.gravar',function(){
+      $.ajax({
+          url: '/clientes/ver',
+          type: 'POST',
+          dataType: 'JSON',
+          headers: {
+            'x-access-token': localStorage.getItem('token')
+          },
+          data: {
+            nome: $('#nome').val(),
+            cliente: $('#cliente').val(),
+            empresa: $('#empresa').val(),
+            id: $('#id').val()
+          },
+          success: function(data){
+            swal({
+              title:'Sucesso',
+              text:'Cliente cadastrado com sucesso',
+              icon:'success'})
+              .then((value) =>{
+                window.location = '/clientes'
+              })
+          },
+          error: function(data){
+            swal({
+              title:'Erro',
+              text:'Algo de errado aconteceu no processo, por favor tente novamente mais tarde',
+              icon:'error'})
+          }
+        })
+    })
   </script>
 </html>

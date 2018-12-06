@@ -88,7 +88,8 @@ module.exports = function(app){
             if(err){
                 console.log(err)
             }
-            res.redirect('/clientes');
+            return res.status(200).send({auth:true}); 
+            // res.redirect('/clientes');
         })        
     })
 
