@@ -1,5 +1,5 @@
 module.exports = function(app){
-    app.get('/vendas',auth,function(req,res){
+    app.get('/vendas',function(req,res){
 
         var connection = app.infra.dbConnection();
         var vendasBanco = new app.infra.vendasBanco(connection);
@@ -44,17 +44,64 @@ module.exports = function(app){
                     });   
                 },
                 json: function(){
-                    res.json(results);
+                    res.json(resultados);
                 }
             })
         })
     })
 
+    app.post('/vendas/listar',auth,function(req,res){
+
+        var connection = app.infra.dbConnection();
+        var vendasBanco = new app.infra.vendasBanco(connection);
+        var clientesBanco = new app.infra.clientesBanco(connection);
+        var produtosBanco = new app.infra.produtosBanco(connection);
+
+        var produtos = {}
+        produtosBanco.todos(function(erros,results){
+            produtos = results;
+        })
+
+        var clientes = {}
+        clientesBanco.todos(function(erros,results){
+            clientes = results
+        })
+
+    //     var dados_filtro = {
+    //         id: req.query.id != undefined ? decodeURI(req.query.id) : '',
+    //         nome: req.query.nome != undefined ? decodeURI(req.query.nome) : '',
+    //         data: req.query.data != undefined ? decodeURI(req.query.data) : '',
+    //         valor: req.query.valor != undefined ? decodeURI(req.query.valor) : ''
+    //    }
+       
+    var dados_filtro = req.body;    
+       vendasBanco.lista(req.body,function(erros,resultados){
+
+            if(erros){
+                console.log('Erro no banco de dados');
+                return;
+            }
+            res.format({
+                html: function(){
+                    res.render("vendas/lista",{
+                        lista:resultados,
+                        filtros:dados_filtro,
+                        clientes:clientes,
+                        produtos: produtos,
+                        errosValidacao:{}
+                    });   
+                },
+                json: function(){
+                    res.json(resultados);
+                }
+            })
+        })
+    })    
+
     app.post('/vendas',auth,function(req,res){
         var connection = app.infra.dbConnection();
         var vendasBanco = new app.infra.vendasBanco(connection);
 
-        // console.log(req.body)
         var data = req.body.data.split('/');
         var dados_form = {
             cliente_id: req.body.cliente_id,
@@ -73,11 +120,20 @@ module.exports = function(app){
             vendasBanco.salvaVenda(dados_insert,function(err,results){
                 if(err){
                     console.log('Erro ao vincular os produtos com a venda');
+                    return res.status(500).send({auth:false}); 
                 }
             })        
         })
 
-        res.redirect('/vendas');
+        res.format({
+            html: function(){
+                res.redirect('/vendas');
+            },
+            json: function(){
+                return res.status(200).send({auth:true}); 
+            }
+        })
+
         
     })
 

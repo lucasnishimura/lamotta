@@ -44,7 +44,7 @@
                             <% } %>
                             
                         </div>
-                        <form class="form-inserir" action="/vendas" method="post">
+                        <form class="form-inserir" method="post">
                           <!-- <div class="row">
                             <div class="col-md-3">
                               <h4>Dados do produto</h4>
@@ -111,7 +111,7 @@
                     </div>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                      <button type="submit" class="btn btn-primary inserir">Inserir</button>
+                      <button type="button" class="btn btn-primary inserir">Inserir</button>
                     </div> 
                   </div>
                 </div>
@@ -172,7 +172,7 @@
                       <input type="text" class="form-control" name="nome" id="nome" value="<%=filtros.nome%>" placeholder="Nome">
                     </div>
                     <div class="col-md-3">
-                      <input type="text" class="form-control" name="data" id="data" value="<%=filtros.data%>" placeholder="Data">
+                      <input type="text" class="form-control" name="data" id="data-filtro" value="<%=filtros.data%>" placeholder="Data">
                     </div>
                     <div class="col-md-3">
                       <input type="text" class="form-control" name="valor" id="valor" value="<%=filtros.valor%>" placeholder="Valor">
@@ -185,9 +185,9 @@
                 <div class="row "> 
                   <!-- <a href="produtos/inserir">Inserir novo produto</a><br>
                   <a href="/">Voltar</a> -->
-                  <div class="col-md-12">
+                  <div class="col-md-12 table-clientes">
                     <table class="table">
-                        <tr class="table-title">
+                        <!-- <tr class="table-title">
                             <td>ID</td>
                             <td>Nome</td>
                             <td>Data</td>
@@ -202,7 +202,7 @@
                             <td>R$ <%=lista[i].valor.toFixed(2)%></td>
                             <td><a class="btn btn-primary" href="/vendas/ver/<%=lista[i].id%>">Ver</a></td>
                         </tr>
-                        <% } %>
+                        <% } %> -->
                     </table>
   
                   </div>
@@ -224,20 +224,115 @@
   </body>
   <script>
     $(document).on('click','#buscar',function(){
-      var data = '';
-      if($('#data').val() != ''){
-        var data_brasil = $('#data').val().split('/');
-        data = data_brasil[2]+'-'+data_brasil[1]+'-'+data_brasil[0];
-      }
-
-      window.location = '/vendas?id='+$('#id').val()+'&nome='+$('#nome').val()+'&data='+data+'&valor='+$('#valor').val();
+      // window.location = '/clientes?id='+$('#id').val()+'&nome='+$('#nome').val()+'&cliente='+$('#cliente').val()+'&empresa='+$('#empresa').val();
+      getClientes($('#id').val(),$('#nome').val(),$('#data-filtro').val(),$('#valor').val())
     })
+
+    $(document).ready(function(){
+      $('.container-load').show()
+      getClientes();
+    })
+
+    // $(document).on('click','.cliente-ver',function(){
+    //   var cliente_id = $(this).data('ref');
+      
+    // })
+
+    function getClientes(id = '',nome = '',data = '',valor = ''){
+      if(data != ''){
+        data = convertData(data);
+      }
+      
+        $.ajax({
+          url: '/vendas/listar',
+          type: 'POST',
+          dataType: 'JSON',
+          data: {
+            id: id,
+            nome: nome,
+            data: data,
+            valor: valor
+          },
+          headers: {
+            'x-access-token': localStorage.getItem('token')
+          },
+          success: function(data){
+            var template = '';
+            for (var index = 0; index < data.length; index++) {
+              var data_banco = new Date(data[index].data);
+              template += ` <tr>
+                <td>`+data[index].id+`</td>
+                <td>`+data[index].nome+`</td>
+                <td>`+data_banco.getDate()+`/`+data_banco.getMonth()+`/`+data_banco.getFullYear()+`</td>
+                <td>`+data[index].valor.toFixed(2)+`</td>
+                <td><button class="btn btn-primary cliente-ver" onclick=requestURL('vendas/ver/`+data[index].id+`') data-ref="`+data[index].id+`">Ver</buton></td>
+                </tr>`;
+            }
+
+            var html = `<table class="table">
+                        <tr class="table-title">
+                            <td>ID</td>
+                            <td>Nome</td>
+                            <td>Data</td>
+                            <td>Valor</td>
+                            <td>Ver</td>
+                        </tr>
+                        `+template+`
+                    </table>`;
+
+            $('.table-clientes').html(html)
+            $('.container-load').hide()
+          },
+          error: function(data){
+            console.log(data)
+            $('.container-load').hide()
+            window.location = '/login';
+            // console.log('red view clientes')
+          }
+        })
+    }
+
+    // $(document).on('click','#buscar',function(){
+    //   var data = '';
+    //   if($('#data').val() != ''){
+    //     var data_brasil = $('#data').val().split('/');
+    //     data = data_brasil[2]+'-'+data_brasil[1]+'-'+data_brasil[0];
+    //   }
+
+    //   window.location = '/vendas?id='+$('#id').val()+'&nome='+$('#nome').val()+'&data='+data+'&valor='+$('#valor').val();
+    // })
 
     i = 1;
 
     $(document).on('click','.inserir',function(){
-      $('.form-inserir').submit()
+      // $('.form-inserir').submit()
+      var formdata = $('.form-inserir').serialize()
+      // var formdata = new FormData($('.form-inserir'))
+
+      $.ajax({
+          url: '/vendas',
+          type: 'POST',
+          dataType: 'JSON',
+          data: formdata,
+          headers: {
+            'x-access-token': localStorage.getItem('token')
+          },
+          success: function(data){
+            swal({
+              title:'Sucesso',
+              text:'Venda cadastrada com sucesso',
+              icon:'success'})
+              .then((value) =>{
+                window.location = '/vendas'
+              })
+          },
+          error: function(data){
+            console.log(data)
+            $('.container-load').hide()
+            // window.location = '/login';
+          }
     })
+  })
 
     $(document).on('click','.add-ingrediente',function(){
       var html = `<div class="row form-group">

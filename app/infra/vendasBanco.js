@@ -24,8 +24,8 @@ VendasBanco.prototype.lista =  function(filtros,callback){
 	if(filtros.data != ""){
 		var Filtrodata = " and data >= '"+filtros.data+"'";
 	}
-
-    this.connection.query('select c.nome,a.id,valor,data from vendas as a inner join clientes as c on a.cliente_id = c.id where a.id > 0'+Filtronome+Filtroid+Filtrovalor+Filtrodata+' order by data asc',callback);
+	console.log('select c.nome,a.id,valor,data from vendas as a inner join clientes as c on a.cliente_id = c.id where a.id > 0'+Filtronome+Filtroid+Filtrovalor+Filtrodata+' order by id desc')
+    this.connection.query('select c.nome,a.id,valor,data from vendas as a inner join clientes as c on a.cliente_id = c.id where a.id > 0'+Filtronome+Filtroid+Filtrovalor+Filtrodata+' order by id desc',callback);
 }	
 
 VendasBanco.prototype.salva =  function(produto,callback){
