@@ -137,7 +137,48 @@ module.exports = function(app){
         
     })
 
-    app.get('/vendas/ver/:id?',auth,function(req,res){
+    app.post('/vendas/ver',auth,function(req,res){
+        var connection = app.infra.dbConnection();
+        var vendasBanco = new app.infra.vendasBanco(connection);
+// console.log(req.body)
+// return false;
+        var data = req.body.data.split('/');
+        var dados_form = {
+            cliente_id: req.body.cliente_id,
+            valor: req.body.valor,
+            data: data[2]+'-'+data[1]+'-'+data[0],
+            status: req.body.status,
+            id: req.body.id
+        }
+        var vendas = req.body.vendas;
+        vendasBanco.altera(dados_form,function(err,results){
+            var dados_insert = {
+                'venda_id' : req.body.id,
+                'vendas' : req.body.vendas,
+                'total' : vendas.length
+            }
+      
+            vendasBanco.alteraVenda(dados_insert,function(err,results){
+                if(err){
+                    console.log('Erro ao vincular os produtos com a venda');
+                    return res.status(500).send({auth:false}); 
+                }
+            })        
+        })
+
+        res.format({
+            html: function(){
+                res.redirect('/vendas');
+            },
+            json: function(){
+                return res.status(200).send({auth:true}); 
+            }
+        })
+
+        
+    })
+
+    app.get('/vendas/ver/:id?',function(req,res){
         var connection = app.infra.dbConnection();
         var vendasBanco = new app.infra.vendasBanco(connection);
         var clientesBanco = new app.infra.clientesBanco(connection);

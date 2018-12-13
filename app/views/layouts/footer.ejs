@@ -45,13 +45,15 @@
               })
         }
 
-        function convertData(data){
-          var data = new Date(data);
-              dia  = data.getDate().toString();
-              diaF = (dia.length == 1) ? '0'+dia : dia;
-              mes  = (data.getMonth()+1).toString(); //+1 pois no getMonth Janeiro começa com zero.
-              mesF = (mes.length == 1) ? '0'+mes : mes;
-              anoF = data.getFullYear();
-              return anoF+"-"+diaF+"-"+mesF;
+        function convertData(data_func){
+          data_func = data_func.split('/');
+          // var data = new Date(data_func);
+          // dia  = data.getDate().toString();
+          // diaF = (dia.length == 1) ? '0'+dia : dia;
+          // mes  = (data.getMonth()+1).toString(); //+1 pois no getMonth Janeiro começa com zero.
+          // mesF = (mes.length == 1) ? '0'+mes : mes;
+          // anoF = data.getFullYear();
+          // return anoF+"-"+mesF+"-"+diaF;
+          return data_func[2]+"-"+data_func[1]+"-"+data_func[0];
         }
         </script>

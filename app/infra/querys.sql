@@ -117,5 +117,8 @@ Marcar querys j� executas
 ALTER TABLE `lamotta_com_br`.`produtos` 
 ADD COLUMN `imagem` VARCHAR(45) NULL AFTER `descricao`;
 
+ALTER TABLE `lamotta_com_br`.`vendas` 
+ADD COLUMN `status` VARCHAR(45) NULL AFTER `valor`;
 
-
+ALTER TABLE `lamotta_com_br`.`vendas` 
+ADD COLUMN `restante` FLOAT NULL AFTER `status`;

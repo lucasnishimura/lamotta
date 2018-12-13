@@ -44,7 +44,8 @@
                             <% } %>
                             
                         </div>
-                        <form class="form-inserir" method="post">
+                        <form class="form-inserir" method="post" autocomplete="off">
+                            <input type="hidden" class="total-form" name="valor" value="">
                           <!-- <div class="row">
                             <div class="col-md-3">
                               <h4>Dados do produto</h4>
@@ -74,39 +75,37 @@
                             </div>
                           </div>
                           <div class="conteudo-ingredientes">
-                              <div class="row">
-                                  <div class="col-md-5">
-                                    <label for="">Nome do produto:</label>
-                                    <select name="vendas[0][produto]" class="form-control produtos" data-id="0">
-                                      <option value="0">Escolha um produto</option>
-                                      <%for (index = 0; index < produtos.length; index++) {%>
-                                        <option value="<%=produtos[index].id%>" data-preco="<%=produtos[index].preco%>"><%=produtos[index].nome%> - R$ <%=produtos[index].preco%></option>
-                                      <%}%>
-                                    </select>
+                            <div class="row">
+                                <div class="col-md-5">
+                                  <label for="">Nome do produto:</label>
+                                  <select name="vendas[0][produto]" class="form-control produtos" data-id="0">
+                                    <option value="0">Escolha um produto</option>
+                                    <%for (index = 0; index < produtos.length; index++) {%>
+                                      <option value="<%=produtos[index].id%>" data-preco="<%=produtos[index].preco%>"><%=produtos[index].nome%> - R$ <%=produtos[index].preco%></option>
+                                    <%}%>
+                                  </select>
+                                </div>
+                                <div class="col-md-3">
+                                  <label for="">Quantidade:</label>
+                                  <input type="number" class="form-control quantidade quantidade_0" data-id="0" placeholder="Digite uma quantidade" name="vendas[0][quantidade]">
+                                </div>
+                                <div class="col-md-2">
+                                  <label for="">R$</label><br>
+                                  <span class="produtoPreco_0">-</span>
+                                </div>
+                              </div><br>
+                            </div>
+                            <div class="row">
+                              <div class="col-sm-6 col-md-12">
+                                <div class="card text-white bg-success text-center campo-preco-total">
+                                  <div class="card-body">
+                                    <blockquote class="card-bodyquote preco-total">
+                                      Total: R$ <p class="valor-total">0.00</p>
+                                    </blockquote>
                                   </div>
-                                  <div class="col-md-3">
-                                    <label for="">Quantidade:</label>
-                                    <input type="number" class="form-control quantidade quantidade_0" data-id="0" placeholder="Digite uma quantidade" name="vendas[0][quantidade]">
-                                  </div>
-                                  <div class="col-md-2">
-                                    <label for="">R$</label><br>
-                                    <span class="produtoPreco_0">-</span>
-                                  </div>
-                                </div><br>
-                                
+                                </div>
                               </div>
-                                  <div class="row">
-                                    <div class="col-sm-6 col-md-12">
-                                      <div class="card text-white bg-success text-center campo-preco-total">
-                                        <div class="card-body">
-                                          <blockquote class="card-bodyquote preco-total">
-                                            Total: R$ <p class="valor-total">0.00</p>
-                                          </blockquote>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <input type="hidden" class="total-form" name="valor" value="">
+                            </div>
                         </form>
                     </div>
                     <div class="modal-footer">
@@ -233,11 +232,6 @@
       getClientes();
     })
 
-    // $(document).on('click','.cliente-ver',function(){
-    //   var cliente_id = $(this).data('ref');
-      
-    // })
-
     function getClientes(id = '',nome = '',data = '',valor = ''){
       if(data != ''){
         data = convertData(data);
@@ -292,22 +286,10 @@
         })
     }
 
-    // $(document).on('click','#buscar',function(){
-    //   var data = '';
-    //   if($('#data').val() != ''){
-    //     var data_brasil = $('#data').val().split('/');
-    //     data = data_brasil[2]+'-'+data_brasil[1]+'-'+data_brasil[0];
-    //   }
-
-    //   window.location = '/vendas?id='+$('#id').val()+'&nome='+$('#nome').val()+'&data='+data+'&valor='+$('#valor').val();
-    // })
-
     i = 1;
 
     $(document).on('click','.inserir',function(){
-      // $('.form-inserir').submit()
       var formdata = $('.form-inserir').serialize()
-      // var formdata = new FormData($('.form-inserir'))
 
       $.ajax({
           url: '/vendas',

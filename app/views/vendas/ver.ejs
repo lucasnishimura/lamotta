@@ -68,7 +68,7 @@
                     <% } %>
                     
                   </div>
-                  <form class="form-inserir" action="/vendas" method="post">
+                  <form class="form-inserir" method="post">
                     <!-- <div class="row">
                       <div class="col-md-3">
                         <h4>Dados do produto</h4>
@@ -87,9 +87,23 @@
                           <%}%>
                         </select>
                       </div>
-                      <div class="col-md-6">
+                      <div class="col-md-3">
                         <label for="">Data da compra:</label>
                         <input type="text" name="data" id="data" placeholder="Digite data da compra" class="form-control" value="<%=venda.data%>">
+                      </div>
+                      <div class="col-md-3">
+                        <label for="">Status</label>
+                        <select name="status" class="form-control">
+                            <% if(venda.data == "pago"){ %>
+                              <%var pago = 'selected'  
+                                var pendente = ''%> 
+                           <%}else{%> 
+                              <% var pago = '';
+                              var pendente = 'selected'; 
+                            }%>
+                          <option value="pendente" <%=pago%>>Pendente</option>
+                          <option value="pago" <%=pendente%> >Pago</option>
+                        </select>
                       </div>
                     </div>
                     <div class="row">
@@ -127,6 +141,7 @@
                               </div>
                               <div class="col-md-3">
                                 <input type="number" class="form-control quantidade quantidade_<%=index%>" value="<%=produtos[index].quantidade%>" data-id="<%=index%>" placeholder="Digite uma quantidade" name="vendas[<%=index%>][quantidade]">
+                                <input type="hidden" class="" value="<%=produtos[index].id%>" name="vendas[<%=index%>][id]">
                               </div>
                               <div class="col-md-2">
                                 <span class="produtoPreco_<%=index%>"><%=produtos[index].preco%> x <span class="quantidadeTotal_<%=index%>"><%=produtos[index].quantidade%></span></span><input type="hidden" class="subtotal subtotal_<%=index%>" data-preco="<%=produtos[index].preco * produtos[index].quantidade%>" value="<%=produtos[index].preco%>">
@@ -149,8 +164,14 @@
                                 </div>
                               </div>
                             </div>
-                            <input type="hidden" class="total-form" name="valor" value="">
+                            <input type="hidden" class="total-form" name="valor" value="<%=venda.valor.toFixed(2)%>">
+                            <input type="hidden" name="id" value="<%=venda.id%>">
                   </form>
+                  <div class="row">
+                    <div class="col-md-3">
+                      <button class="btn btn-success inserir">Salvar</button>
+                    </div>
+                  </div>
 
               </div>
             </div>
@@ -167,6 +188,34 @@
     <%include ../layouts/footer.ejs%>
   </body>
   <script>
+     $(document).on('click','.inserir',function(){
+      var formdata = $('.form-inserir').serialize()
+
+      $.ajax({
+          url: '/vendas/ver',
+          type: 'POST',
+          dataType: 'JSON',
+          data: formdata,
+          headers: {
+            'x-access-token': localStorage.getItem('token')
+          },
+          success: function(data){
+            swal({
+              title:'Sucesso',
+              text:'Venda cadastrada com sucesso',
+              icon:'success'})
+              .then((value) =>{
+                window.location = '/vendas'
+              })
+          },
+          error: function(data){
+            console.log(data)
+            $('.container-load').hide()
+            // window.location = '/login';
+          }
+    })
+  })
+
     i = <%=venda.Total%>
     $(document).on('click','.add-ingrediente',function(){
       var html = `<div class="row form-group">
